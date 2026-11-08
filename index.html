@@ -263,6 +263,18 @@ const getInfoTanggalIndonesia = (dateStr) => {
   };
 };
 
+// Fungsi Pembentuk Kalimat Redaksi "Untuk Pembayaran" Kwitansi
+const susunRedaksiKwitansiOtomatis = (trx, schoolData) => {
+  if (!trx) return '';
+  const tglPesan = getInfoTanggalIndonesia(trx.tanggalPesan || trx.tanggal);
+  const itemText = trx.itemBelanjaRingkas || trx.uraianBelanja || '...';
+  const kegSpesifikText = trx.kegiatanSpesifik || '...';
+  const subKegText = trx.namaKegiatan || '...';
+  const noNP = trx.noNotaPesanan || '...';
+  const bankText = trx.bankPemindahbukuan || schoolData?.namaBank || '...';
+  return `Belanja ${itemText} untuk Kegiatan ${kegSpesifikText}, yang dibebankan pada sub kegiatan ${subKegText}, berdasarkan nota pesanan nomor ${noNP} Tanggal ${tglPesan.lengkap}, Dengan pemindah bukuan ke bank ${bankText}, Bukti dan keterangan lainnya terlampir.`;
+};
+
 // ==========================================
 // DATA AWAL (DEFAULT MASTER & SAMPLE DATA)
 // ==========================================
@@ -396,6 +408,42 @@ const KOMPONEN_BOSP_LIST = [
   'Pengembangan Profesi Pendidik dan Tenaga Kependidikan'
 ];
 
+// DAFTAR KEGIATAN ARKAS LENGKAP DENGAN NOMOR KODE SESUAI GAMBAR
+const DAFTAR_KEGIATAN_ARKAS = [
+  '03.01.01 - Pelaksanaan Pendaftaran Murid Baru (PMB)',
+  '03.03.06 - Pelaksanaan Ekstrakurikuler Kepramukaan',
+  '03.03.07 - Pelaksanaan Kegiatan Ekstrakurikuler (diluar Kepramukaan)',
+  '03.03.8 - Program Pembinaan Kesiswaan dan Kepemimpinan Siswa',
+  '03.03.12 - Penyelenggaraan: pencegahan penyalahgunaan narkotika, psikotropika, zat adiktif (narkoba), minuman keras, merokok, dan HIV AIDS',
+  '03.03.14 - Penyelenggaraan Pesantren Kilat dan Kegiatan Keagamaan Sejenis',
+  '04.06.03 - Pengembangan diri guru dan tenaga kependidikan materi lain di luar PMM',
+  '03.03.19 - Pelaksanaan Lomba Lomba',
+  '03.03.20 - Penyelenggaraan Pembelajaran aktif, kreatif, efektif, dan nyaman',
+  '05.02.03 - Pengadaan Buku Teks Utama/Pendamping Peserta Didik',
+  '05.08.01 - Pemeliharaan Prasarana Lahan, Bangunan dan Ruang',
+  '05.08.03 - Pemeliharaan Peralatan Sekolah',
+  '05.08.04 - Pengadaan Perlengkapan Sekolah diluar komponen penyediaan alat multimedia pembelajaran',
+  '05.08.05 - Pemeliharaan Perlengkapan Sekolah',
+  '05.08.09 - Pengadaan Perlengkapan Daya dan Jasa Sekolah (instalasi air, listrik, telepon, internet, termasuk genset/panel surya)',
+  '05.08.10 - Pemeliharaan Perlengkapan Daya dan Jasa Sekolah (instalasi air, listrik, internet, termasuk genset/panel surya)',
+  '05.09.02 - Pengadaan Komputer Laptop, Notebook untuk Pembelajaran, Administrasi dan Perpustakaan',
+  '05.09.04 - Pengadaan Printer, Printer+Scanner, dan Scanner',
+  '06.05.07 - Pengadaan Bahan Pembelajaran dan Praktik (termasuk Kejuruan/Bengkel)',
+  '06.05.08 - Pembelian Bahan Habis Pakai untuk mendukung pembelajaran dan administrasi sekolah (termasuk ATK, Tinta Printer, Kabel Ekstension, dsb)',
+  '06.05.09 - Pembelian bahan habis pakai/alat penunjang kebersihan dan sanitasi sekolah',
+  '06.05.14 - Transportasi atau perjalanan dinas dalam rangka koordinasi dan pelaporan ke Dinas Pendidikan',
+  '06.07.01 - Pembayaran daya listrik',
+  '06.07.03 - Pembayaran langganan air',
+  '06.07.05 - Pembayaran jasa internet',
+  '07.05.07 - Pencetakan Ijazah',
+  '07.10.02 - Penyelenggaraan praktik kerja industri atau lapangan bagi Peserta Didik SMK atau SMALB',
+  '07.10.05 - Penyelenggaraan kegiatan uji kompetensi keahlian, sertifikasi kejuruan Peserta Didik SMK atau SMALB',
+  '07.12.03 - Pembayaran Honor tenaga administrasi',
+  '08.04.01 - Persiapan, uji coba, simulasi, dan pelaksanaan Asesmen Nasional',
+  '08.04.06 - Pelaksanaan penilaian sumatif (ulangan tengah semester/akhir semester/kenaikan kelas)',
+  '08.06.01 - Fasilitasi pengembangan kompetensi guru melalui diseminasi PSP (IHT, Pelatihan, Penugasan, Pengembangan Portofolio, Pelaksanaan P5, dan Workshop)'
+];
+
 const INITIAL_ANGGARAN = {
   paguTahunan: 850000000,
   penerimaanTahap1: 425000000,
@@ -413,26 +461,26 @@ const INITIAL_ANGGARAN = {
 // DAFTAR MASTER TOKO / PENYEDIA LENGKAP DENGAN NPWP & NOMOR HP TERBARU
 const INITIAL_TOKO_LIST = [
   { namaPenyedia: 'RM. PULAU SEMBILAN', alamatPenyedia: 'Kambono Timur, Pulau Sembilan', namaPemilikPenyedia: 'Karmila', teleponPenyedia: '087468986990', npwpPenyedia: '730803785204961' },
-  { namaPenyedia: 'RAHMA CELL', alamatPenyedia: 'Tanassang, Kel. Alehanuae Kec. Sinjai Utara', namaPemilikPenyedia: 'Sofyan', teleponPenyedia: '082661286390', npwpPenyedia: '730705362819574' },
+  { namaPenyedia: 'RAHMA CELL', alamatPenyedia: 'Tanassang, Kel. Alehanuae', namaPemilikPenyedia: 'Sofyan', teleponPenyedia: '082661286390', npwpPenyedia: '730705362819574' },
   { namaPenyedia: 'TOKO ERYANI', alamatPenyedia: 'JL. Pramuka, Kab. Sinjai', namaPemilikPenyedia: 'H. Arifuddin', teleponPenyedia: '', npwpPenyedia: '04.027.610.7-806.000' },
   { namaPenyedia: 'BENGKEL CAHAYA LAPPA', alamatPenyedia: 'JL. AMANAGAPPA', namaPemilikPenyedia: 'Sri Rahayu Asis', teleponPenyedia: '082348012211', npwpPenyedia: '702234626806000' },
   { namaPenyedia: 'Rumah Jahit Tifa Studio', alamatPenyedia: 'JL. Kh. Dewantara Kab. Sinjai', namaPemilikPenyedia: 'Anti', teleponPenyedia: '7307055012910002', npwpPenyedia: '21.019.772.9-806.000' },
   { namaPenyedia: 'MEWA', alamatPenyedia: 'Jl. Tondong Kab. Sinjai', namaPemilikPenyedia: 'Hasni', teleponPenyedia: '0811-6284-3957', npwpPenyedia: '7307017112710020' },
   { namaPenyedia: 'TOKO FERLIKA', alamatPenyedia: 'JL. Persatuan Raya', namaPemilikPenyedia: 'Ferlika', teleponPenyedia: '0878-4612-9350', npwpPenyedia: '7307056310960001' },
-  { namaPenyedia: 'USAHA BAHARI', alamatPenyedia: 'Desa Pulau Harapan Kec. Pulau 9', namaPemilikPenyedia: 'Hermawan', teleponPenyedia: '082661286390', npwpPenyedia: '730803458027193' },
+  { namaPenyedia: 'USAHA BAHARI', alamatPenyedia: 'Kambuno Kec. Pulau Sembilan', namaPemilikPenyedia: 'Hermawan', teleponPenyedia: '082661286390', npwpPenyedia: '730803458027193' },
   { namaPenyedia: 'MANDIRI SABLON', alamatPenyedia: 'JL. SUNGAI TANGKA', namaPemilikPenyedia: 'Sandi Pratama', teleponPenyedia: '0853-4358-8354', npwpPenyedia: '7307053112900010' },
   { namaPenyedia: 'TOKO DIAN PRINT', alamatPenyedia: 'Jl. Boronan Kel Lappa Kec. Sinjai Utara', namaPemilikPenyedia: 'Sri Rahayu Asiz', teleponPenyedia: '085768534058', npwpPenyedia: '730705917350826' },
-  { namaPenyedia: 'TOKO AHYAR', alamatPenyedia: 'PULAU KAMBUNO Kec. Pulau 9', namaPemilikPenyedia: 'Putri Wulandari', teleponPenyedia: '0812-7391-4602', npwpPenyedia: '730705691483205' },
+  { namaPenyedia: 'TOKO AHYAR', alamatPenyedia: 'Pulau Harapan Kec. Pulau 9', namaPemilikPenyedia: 'Putri Wulandari', teleponPenyedia: '0812-7391-4602', npwpPenyedia: '730705691483205' },
   { namaPenyedia: 'FAJAR COM', alamatPenyedia: 'BIKERU SINJAI SELATAN', namaPemilikPenyedia: 'ASDAR SYAM', teleponPenyedia: '0852-9938-9045', npwpPenyedia: '66.445.735.5-806.000' },
   { namaPenyedia: 'WARUNG FITRI', alamatPenyedia: 'JL. SUNU KELURAHAN LAPPA', namaPemilikPenyedia: 'FATIMAH', teleponPenyedia: '08287824521203', npwpPenyedia: '7307054909000005' },
   { namaPenyedia: 'KM. Aisyah', alamatPenyedia: 'Lagoppo Desa Massangkae Kab. Bone', namaPemilikPenyedia: 'NURHIDAYAH', teleponPenyedia: '085309063637', npwpPenyedia: '730705274901638' },
-  { namaPenyedia: 'Toko Panrita Listrik', alamatPenyedia: 'Komples Pasar Biringere', namaPemilikPenyedia: 'Sirajuddin', teleponPenyedia: '0853-6218-9074', npwpPenyedia: '21.019.772.9-806.000' },
+  { namaPenyedia: 'Toko Panrita Listrik', alamatPenyedia: 'Komples Pasara Biringere', namaPemilikPenyedia: 'Sirajuddin', teleponPenyedia: '0853-6218-9074', npwpPenyedia: '21.019.772.9-806.000' },
   { namaPenyedia: 'TK. MITRA BANGUNAN', alamatPenyedia: 'Jl. Persatuan Raya Kec. Sinjai Utara', namaPemilikPenyedia: 'Adi Hasriadi', teleponPenyedia: '0823-2221-1165', npwpPenyedia: '730705839162047' }
 ];
 
 const INITIAL_TRANSACTIONS = [
   {
-    id: 'TRX-2026-001',
+    id: '900/001/ SMKN4-SJ/KWT/BOSP/2026',
     noUrut: '001',
     tanggal: '2026-02-12',
     tanggalKwitansi: '2026-02-12',
@@ -446,8 +494,11 @@ const INITIAL_TRANSACTIONS = [
     bulan: 'Februari',
     komponen: 'Pelaksanaan Administrasi Kegiatan Sekolah',
     kegiatanId: 'RK-01',
-    namaKegiatan: 'Pengadaan Alat Tulis Kantor & Bahan Habis Pakai Administrasi Sekolah',
-    uraianBelanja: 'Pembelian Alat Tulis Kantor (ATK) dan Bahan Cetak Kebutuhan Administrasi Pembelajaran Semester Genap',
+    namaKegiatan: '06.05.08 - Pembelian Bahan Habis Pakai untuk mendukung pembelajaran dan administrasi sekolah (termasuk ATK, Tinta Printer, Kabel Ekstension, dsb)',
+    itemBelanjaRingkas: 'Alat Tulis Kantor (ATK) dan Bahan Cetak',
+    kegiatanSpesifik: 'Kebutuhan Administrasi Pembelajaran Semester Genap',
+    bankPemindahbukuan: 'Bank Sulselbar Cabang Sinjai',
+    uraianBelanja: 'Belanja Alat Tulis Kantor (ATK) dan Bahan Cetak untuk Kegiatan Kebutuhan Administrasi Pembelajaran Semester Genap',
     jenisBelanja: 'Belanja Barang dan Jasa (BHP)',
     sumberDana: 'BOSP Reguler SMK Tahun 2026',
     metodePembayaran: 'Non-Tunai (CMS Bank Sulselbar)',
@@ -496,7 +547,7 @@ const INITIAL_TRANSACTIONS = [
     ]
   },
   {
-    id: 'TRX-2026-002',
+    id: '900/002/ SMKN4-SJ/KWT/BOSP/2026',
     noUrut: '002',
     tanggal: '2026-03-05',
     tanggalKwitansi: '2026-03-05',
@@ -510,8 +561,11 @@ const INITIAL_TRANSACTIONS = [
     bulan: 'Maret',
     komponen: 'Penyediaan Alat Multi Media Pembelajaran',
     kegiatanId: 'RK-02',
-    namaKegiatan: 'Pengadaan Komputer PC, Laptop & Proyektor Laboratorium Praktik',
-    uraianBelanja: 'Belanja Modal Pengadaan Laptop Praktik Desain Grafis & LCD Proyektor Ruang Kelas',
+    namaKegiatan: '05.09.02 - Pengadaan Komputer Laptop, Notebook untuk Pembelajaran, Administrasi dan Perpustakaan',
+    itemBelanjaRingkas: 'Laptop Praktik Desain Grafis & LCD Proyektor',
+    kegiatanSpesifik: 'Peningkatan Sarana Multimedia Ruang Kelas',
+    bankPemindahbukuan: 'Bank Sulselbar Cabang Sinjai',
+    uraianBelanja: 'Belanja Laptop Praktik Desain Grafis & LCD Proyektor untuk Kegiatan Peningkatan Sarana Multimedia Ruang Kelas',
     jenisBelanja: 'Belanja Modal Peralatan dan Mesin',
     sumberDana: 'BOSP Reguler SMK Tahun 2026',
     metodePembayaran: 'Non-Tunai (Transfer SIPLah)',
@@ -557,7 +611,7 @@ const INITIAL_TRANSACTIONS = [
     ]
   },
   {
-    id: 'TRX-2026-003',
+    id: '900/003/ SMKN4-SJ/KWT/BOSP/2026',
     noUrut: '003',
     tanggal: '2026-04-14',
     tanggalKwitansi: '2026-04-14',
@@ -571,8 +625,11 @@ const INITIAL_TRANSACTIONS = [
     bulan: 'April',
     komponen: 'Penyelenggaraan Kegiatan Peningkatan Kompetensi Keahlian',
     kegiatanId: 'RK-03',
-    namaKegiatan: 'Belanja Bahan Praktik Siswa & Uji Kompetensi Keahlian (UKK) SMK',
-    uraianBelanja: 'Pengadaan Bahan Praktik Kejuruan dan Peralatan Uji Kompetensi Keahlian (UKK) Siswa Kelas XII',
+    namaKegiatan: '07.10.05 - Penyelenggaraan kegiatan uji kompetensi keahlian, sertifikasi kejuruan Peserta Didik SMK atau SMALB',
+    itemBelanjaRingkas: 'Bahan Praktik Kejuruan dan Peralatan UKK',
+    kegiatanSpesifik: 'Uji Kompetensi Keahlian (UKK) Siswa Kelas XII',
+    bankPemindahbukuan: 'Bank Sulselbar Cabang Sinjai',
+    uraianBelanja: 'Belanja Bahan Praktik Kejuruan dan Peralatan UKK untuk Kegiatan Uji Kompetensi Keahlian (UKK) Siswa Kelas XII',
     jenisBelanja: 'Belanja Barang dan Jasa (Bahan Praktik)',
     sumberDana: 'BOSP Reguler SMK Tahun 2026',
     metodePembayaran: 'Non-Tunai (CMS Bank Sulselbar)',
@@ -721,8 +778,14 @@ const DokumenSPJRenderer = ({ jenisDokumen, trx, schoolData, onOpenAddPhotoModal
           <tr className="align-top">
             <td className="py-2 font-semibold">Untuk Pembayaran</td>
             <td className="py-2">:</td>
-            <td className="py-2 text-justify">
-              {trx.uraianBelanja} pada kegiatan <span className="font-semibold">{trx.namaKegiatan}</span> sesuai dengan Surat Pesanan Nomor: <span className="font-semibold">{trx.noNotaPesanan}</span> tanggal <span className="font-semibold">{tglPesan.lengkap}</span>.
+            <td className="py-2 text-justify leading-relaxed">
+              {trx.redaksiKwitansiManual !== undefined && trx.redaksiKwitansiManual !== null && trx.redaksiKwitansiManual !== '' ? (
+                <span>{trx.redaksiKwitansiManual}</span>
+              ) : (
+                <>
+                  Belanja <span className="font-semibold">{trx.itemBelanjaRingkas || trx.uraianBelanja || '-'}</span> untuk Kegiatan <span className="font-semibold">{trx.kegiatanSpesifik || '-'}</span>, yang dibebankan pada sub kegiatan <span className="font-semibold">{trx.namaKegiatan}</span>, berdasarkan nota pesanan nomor <span className="font-semibold">{trx.noNotaPesanan}</span> Tanggal <span className="font-semibold">{tglPesan.lengkap}</span>, Dengan pemindah bukuan ke bank <span className="font-semibold">{trx.bankPemindahbukuan || schoolData.namaBank || '-'}</span>, Bukti dan keterangan lainnya terlampir.
+                </>
+              )}
             </td>
           </tr>
           <tr className="align-top">
@@ -2049,7 +2112,7 @@ function App() {
     const tglHariIni = new Date().toISOString().split('T')[0];
     const nomorSeragam = generateNomorDokumenSeragam(urutBaru, thn);
 
-    setEditingTrx({
+    const draftAwal = {
       isNew: true,
       id: nomorSeragam.noKwitansi,
       noUrut: urutBaru,
@@ -2065,8 +2128,13 @@ function App() {
       bulan: 'Mei',
       komponen: KOMPONEN_BOSP_LIST[5],
       kegiatanId: anggaran.rencanaKegiatan[0]?.id || 'RK-01',
-      namaKegiatan: anggaran.rencanaKegiatan[0]?.nama || 'Pengadaan Alat Tulis Kantor',
+      namaKegiatan: DAFTAR_KEGIATAN_ARKAS[19],
+      itemBelanjaRingkas: '',
+      kegiatanSpesifik: '',
+      bankPemindahbukuan: schoolData.namaBank || 'Bank Sulselbar',
       uraianBelanja: '',
+      redaksiKwitansiManual: '',
+      isRedaksiManualEdited: false,
       jenisBelanja: 'Belanja Barang dan Jasa',
       sumberDana: `BOSP Reguler SMK Tahun ${thn}`,
       metodePembayaran: 'Non-Tunai (CMS Bank Sulselbar)',
@@ -2105,32 +2173,48 @@ function App() {
       dokumentasi: [
         { id: `DOC-${Date.now()}`, kategori: 'Foto Barang', judul: 'Dokumentasi Penerimaan & Pemeriksaan Fisik Barang', tanggal: tglHariIni, lokasi: schoolData.namaSekolah, pj: schoolData.pengurusBarang, warnaBg: '#1e3a8a' }
       ]
-    });
+    };
+    draftAwal.redaksiKwitansiManual = susunRedaksiKwitansiOtomatis(draftAwal, schoolData);
+    setEditingTrx(draftAwal);
     setShowTrxModal(true);
   };
 
   const handleSimpanTransaksi = (e) => {
     e.preventDefault();
-    if (!editingTrx.namaPenyedia || !editingTrx.uraianBelanja) {
-      showToast('Harap lengkapi Nama Penyedia dan Uraian Belanja terlebih dahulu!', 'error');
+    if (!editingTrx.namaPenyedia || (!editingTrx.uraianBelanja && !editingTrx.itemBelanjaRingkas && !editingTrx.redaksiKwitansiManual)) {
+      showToast('Harap lengkapi Nama Penyedia dan Rincian Belanja terlebih dahulu!', 'error');
       return;
     }
 
-    const totalTrxBaru = editingTrx.items.reduce((s, i) => s + (i.jumlah * i.harga), 0);
-    if (stats.realisasi + totalTrxBaru > stats.pagu && editingTrx.isNew) {
+    const uraianFinal = editingTrx.itemBelanjaRingkas
+      ? `Belanja ${editingTrx.itemBelanjaRingkas}${editingTrx.kegiatanSpesifik ? ` untuk Kegiatan ${editingTrx.kegiatanSpesifik}` : ''}`
+      : (editingTrx.uraianBelanja || editingTrx.redaksiKwitansiManual);
+
+    const redaksiFinal = (editingTrx.redaksiKwitansiManual !== undefined && editingTrx.redaksiKwitansiManual !== '')
+      ? editingTrx.redaksiKwitansiManual
+      : susunRedaksiKwitansiOtomatis(editingTrx, schoolData);
+
+    const trxSiapSimpan = {
+      ...editingTrx,
+      uraianBelanja: uraianFinal,
+      redaksiKwitansiManual: redaksiFinal
+    };
+
+    const totalTrxBaru = trxSiapSimpan.items.reduce((s, i) => s + (i.jumlah * i.harga), 0);
+    if (stats.realisasi + totalTrxBaru > stats.pagu && trxSiapSimpan.isNew) {
       showToast('Peringatan: Nilai transaksi ini melampaui sisa pagu anggaran BOSP yang tersedia!', 'error');
     }
 
-    if (editingTrx.isNew) {
-      const { isNew, ...cleanTrx } = editingTrx;
+    if (trxSiapSimpan.isNew) {
+      const { isNew, ...cleanTrx } = trxSiapSimpan;
       setTransactions(prev => [cleanTrx, ...prev]);
       setSelectedTrxId(cleanTrx.id);
       catatLog(`Menambahkan Transaksi Belanja BOSP baru: ${cleanTrx.id} (${cleanTrx.uraianBelanja})`);
       showToast(`Transaksi ${cleanTrx.id} berhasil disimpan ke penyimpanan lokal!`);
     } else {
-      setTransactions(prev => prev.map(t => t.id === editingTrx.id ? editingTrx : t));
-      catatLog(`Memperbarui data Transaksi & Dokumen SPJ: ${editingTrx.id}`);
-      showToast(`Perubahan Transaksi ${editingTrx.id} berhasil disimpan!`);
+      setTransactions(prev => prev.map(t => t.id === trxSiapSimpan.id ? trxSiapSimpan : t));
+      catatLog(`Memperbarui data Transaksi & Dokumen SPJ: ${trxSiapSimpan.id}`);
+      showToast(`Perubahan Transaksi ${trxSiapSimpan.id} berhasil disimpan!`);
     }
     setShowTrxModal(false);
   };
@@ -2677,7 +2761,11 @@ function App() {
                           <p className="text-lg font-extrabold text-emerald-700">{formatRupiah(total)}</p>
                           <div className="flex items-center justify-end gap-2 mt-2">
                             <button
-                              onClick={() => { setEditingTrx({ ...trx, isNew: false }); setShowTrxModal(true); }}
+                              onClick={() => {
+                                const redaksiAwal = trx.redaksiKwitansiManual || susunRedaksiKwitansiOtomatis(trx, schoolData);
+                                setEditingTrx({ ...trx, redaksiKwitansiManual: redaksiAwal, isNew: false });
+                                setShowTrxModal(true);
+                              }}
                               className="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-semibold flex items-center gap-1"
                             >
                               <Edit className="w-3.5 h-3.5" /> Edit Data & Item
@@ -3862,11 +3950,15 @@ function App() {
                         const urutVal = e.target.value;
                         const thn = editingTrx.tahunAnggaran || schoolData.tahunAnggaran || '2026';
                         const nomorBaru = generateNomorDokumenSeragam(urutVal, thn);
-                        setEditingTrx({
+                        const nextTrx = {
                           ...editingTrx,
                           id: nomorBaru.noKwitansi,
                           ...nomorBaru
-                        });
+                        };
+                        if (!editingTrx.isRedaksiManualEdited) {
+                          nextTrx.redaksiKwitansiManual = susunRedaksiKwitansiOtomatis(nextTrx, schoolData);
+                        }
+                        setEditingTrx(nextTrx);
                       }}
                       placeholder="Contoh: 001 atau 198"
                       className="w-40 border-2 border-sky-500 rounded-lg p-2 bg-white font-mono font-extrabold text-sky-900 text-sm"
@@ -3879,7 +3971,18 @@ function App() {
                 </div>
                 <div>
                   <label className="font-bold block mb-1">Tanggal Nota Pesanan</label>
-                  <input type="date" value={editingTrx.tanggalPesan} onChange={(e) => setEditingTrx({ ...editingTrx, tanggalPesan: e.target.value })} className="w-full border border-slate-300 rounded-lg p-2 bg-white" />
+                  <input
+                    type="date"
+                    value={editingTrx.tanggalPesan}
+                    onChange={(e) => {
+                      const nextTrx = { ...editingTrx, tanggalPesan: e.target.value };
+                      if (!editingTrx.isRedaksiManualEdited) {
+                        nextTrx.redaksiKwitansiManual = susunRedaksiKwitansiOtomatis(nextTrx, schoolData);
+                      }
+                      setEditingTrx(nextTrx);
+                    }}
+                    className="w-full border border-slate-300 rounded-lg p-2 bg-white"
+                  />
                 </div>
                 <div>
                   <label className="font-bold block mb-1">Tanggal Terima / Periksa / BAST</label>
@@ -3919,13 +4022,150 @@ function App() {
                     {KOMPONEN_BOSP_LIST.map(k => <option key={k} value={k}>{k}</option>)}
                   </select>
                 </div>
-                <div className="md:col-span-4">
-                  <label className="font-bold block mb-1">Nama Kegiatan RKAS</label>
-                  <input value={editingTrx.namaKegiatan} onChange={(e) => setEditingTrx({ ...editingTrx, namaKegiatan: e.target.value })} className="w-full border border-slate-300 rounded-lg p-2 bg-white" />
+                <div className="md:col-span-4 space-y-1.5">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <label className="font-bold block">Nama Kegiatan ARKAS (Bisa Pilih Dropdown atau Ketik Manual)</label>
+                    <select
+                      value={DAFTAR_KEGIATAN_ARKAS.includes(editingTrx.namaKegiatan) ? editingTrx.namaKegiatan : ''}
+                      onChange={(e) => {
+                        if (e.target.value) {
+                          const nextTrx = { ...editingTrx, namaKegiatan: e.target.value };
+                          if (!editingTrx.isRedaksiManualEdited) {
+                            nextTrx.redaksiKwitansiManual = susunRedaksiKwitansiOtomatis(nextTrx, schoolData);
+                          }
+                          setEditingTrx(nextTrx);
+                        }
+                      }}
+                      className="border border-sky-400 bg-sky-50 text-sky-950 font-bold rounded-lg px-3 py-1 text-xs max-w-full md:max-w-md"
+                    >
+                      <option value="">-- Pilih Cepat dari Daftar Kegiatan ARKAS --</option>
+                      {DAFTAR_KEGIATAN_ARKAS.map((keg, idx) => (
+                        <option key={idx} value={keg}>{keg}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <input
+                    list="datalist-kegiatan-arkas"
+                    value={editingTrx.namaKegiatan}
+                    onChange={(e) => {
+                      const nextTrx = { ...editingTrx, namaKegiatan: e.target.value };
+                      if (!editingTrx.isRedaksiManualEdited) {
+                        nextTrx.redaksiKwitansiManual = susunRedaksiKwitansiOtomatis(nextTrx, schoolData);
+                      }
+                      setEditingTrx(nextTrx);
+                    }}
+                    placeholder="Ketik manual atau pilih kode & nama kegiatan ARKAS..."
+                    className="w-full border border-slate-300 rounded-lg p-2 bg-white font-semibold text-slate-900"
+                  />
+                  <datalist id="datalist-kegiatan-arkas">
+                    {DAFTAR_KEGIATAN_ARKAS.map((keg, idx) => (
+                      <option key={idx} value={keg} />
+                    ))}
+                  </datalist>
                 </div>
-                <div className="md:col-span-4">
-                  <label className="font-bold block mb-1">Uraian Belanja / Keperluan Pembayaran (Untuk Kwitansi)</label>
-                  <input required value={editingTrx.uraianBelanja} onChange={(e) => setEditingTrx({ ...editingTrx, uraianBelanja: e.target.value })} placeholder="Contoh: Pembelian Bahan Praktik Kejuruan / ATK Sekolah..." className="w-full border border-slate-300 rounded-lg p-2 bg-white font-semibold" />
+
+                {/* Kolom Terstruktur & Kotak Edit Manual untuk Redaksi "Untuk Pembayaran" pada Kwitansi */}
+                <div className="md:col-span-4 bg-sky-50/90 border border-sky-200 rounded-xl p-3.5 space-y-3">
+                  <p className="font-extrabold text-sky-950 text-xs">
+                    Isian Redaksi "Untuk Pembayaran" pada Kwitansi:
+                  </p>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <div>
+                      <label className="font-bold block mb-1 text-slate-700">1. Belanja ... (Misal: Nasi Kotak)</label>
+                      <input
+                        value={editingTrx.itemBelanjaRingkas ?? editingTrx.uraianBelanja ?? ''}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          const nextTrx = {
+                            ...editingTrx,
+                            itemBelanjaRingkas: val,
+                            uraianBelanja: `Belanja ${val}${editingTrx.kegiatanSpesifik ? ` untuk Kegiatan ${editingTrx.kegiatanSpesifik}` : ''}`
+                          };
+                          if (!editingTrx.isRedaksiManualEdited) {
+                            nextTrx.redaksiKwitansiManual = susunRedaksiKwitansiOtomatis(nextTrx, schoolData);
+                          }
+                          setEditingTrx(nextTrx);
+                        }}
+                        placeholder="Contoh: Nasi Kotak / ATK..."
+                        className="w-full border border-slate-300 rounded-lg p-2 bg-white font-semibold"
+                      />
+                    </div>
+                    <div>
+                      <label className="font-bold block mb-1 text-slate-700">2. Untuk Kegiatan ... (Misal: Seleksi Paski)</label>
+                      <input
+                        value={editingTrx.kegiatanSpesifik || ''}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          const itemVal = editingTrx.itemBelanjaRingkas ?? editingTrx.uraianBelanja ?? '';
+                          const nextTrx = {
+                            ...editingTrx,
+                            kegiatanSpesifik: val,
+                            uraianBelanja: `Belanja ${itemVal}${val ? ` untuk Kegiatan ${val}` : ''}`
+                          };
+                          if (!editingTrx.isRedaksiManualEdited) {
+                            nextTrx.redaksiKwitansiManual = susunRedaksiKwitansiOtomatis(nextTrx, schoolData);
+                          }
+                          setEditingTrx(nextTrx);
+                        }}
+                        placeholder="Contoh: Seleksi Paski..."
+                        className="w-full border border-slate-300 rounded-lg p-2 bg-white font-semibold"
+                      />
+                    </div>
+                    <div>
+                      <label className="font-bold block mb-1 text-slate-700">3. Pemindahbukuan ke Bank ... (Manual)</label>
+                      <input
+                        value={editingTrx.bankPemindahbukuan || ''}
+                        onChange={(e) => {
+                          const nextTrx = { ...editingTrx, bankPemindahbukuan: e.target.value };
+                          if (!editingTrx.isRedaksiManualEdited) {
+                            nextTrx.redaksiKwitansiManual = susunRedaksiKwitansiOtomatis(nextTrx, schoolData);
+                          }
+                          setEditingTrx(nextTrx);
+                        }}
+                        placeholder="Contoh: Bank Sulselbar / BRI..."
+                        className="w-full border border-slate-300 rounded-lg p-2 bg-white font-semibold"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Kotak Preview & Edit Manual Bebas untuk Seluruh Kalimat */}
+                  <div className="bg-white border border-sky-300 rounded-lg p-3 text-xs text-slate-800 space-y-1.5">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <label className="font-extrabold text-sky-900 block">
+                        Preview & Edit Manual Kalimat "Untuk Pembayaran" (Bisa Diedit, Dihapus, atau Diketik Manual Semua Kalimat):
+                      </label>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setEditingTrx({
+                            ...editingTrx,
+                            redaksiKwitansiManual: susunRedaksiKwitansiOtomatis(editingTrx, schoolData),
+                            isRedaksiManualEdited: false
+                          });
+                        }}
+                        className="text-[11px] font-bold bg-sky-100 hover:bg-sky-200 text-sky-800 px-2.5 py-1 rounded-md flex items-center gap-1 transition"
+                        title="Susun ulang otomatis dari 3 kotak isian di atas"
+                      >
+                        <RefreshCw className="w-3 h-3" /> Susun Ulang Otomatis
+                      </button>
+                    </div>
+                    <textarea
+                      rows={3}
+                      value={editingTrx.redaksiKwitansiManual ?? susunRedaksiKwitansiOtomatis(editingTrx, schoolData)}
+                      onChange={(e) => {
+                        setEditingTrx({
+                          ...editingTrx,
+                          redaksiKwitansiManual: e.target.value,
+                          isRedaksiManualEdited: true
+                        });
+                      }}
+                      placeholder="Ketik atau edit seluruh kalimat Untuk Pembayaran pada Kwitansi secara bebas di sini..."
+                      className="w-full border border-slate-300 focus:border-sky-500 rounded-lg p-2.5 text-xs font-medium text-slate-900 leading-relaxed bg-slate-50/50 focus:bg-white"
+                    />
+                    <span className="text-[10px] text-slate-500 block">
+                      * Anda dapat menghapus bagian mana pun atau mengetik ulang seluruh kalimat di kotak ini. Kalimat di dalam kotak inilah yang akan tercetak pada Kwitansi.
+                    </span>
+                  </div>
                 </div>
               </div>
 
