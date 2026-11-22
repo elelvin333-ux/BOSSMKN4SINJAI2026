@@ -63,6 +63,15 @@
           page-break-after: always;
         }
       }
+      .naskah-ba-distribusi,
+      .naskah-ba-distribusi .isi-ba-distribusi,
+      .naskah-ba-distribusi .isi-ba-distribusi p,
+      .naskah-ba-distribusi .isi-ba-distribusi td,
+      .naskah-ba-distribusi .isi-ba-distribusi th,
+      .naskah-ba-distribusi .isi-ba-distribusi h2 {
+        font-family: Georgia, serif !important;
+        font-size: 10.5pt !important;
+      }
     </style>
 </head>
 <body class="bg-slate-100 min-h-screen">
@@ -1301,143 +1310,145 @@ const DokumenSPJRenderer = ({ jenisDokumen, trx, schoolData, onOpenAddPhotoModal
     ][tglBASTObj.getMonth()] || '-';
 
     return (
-      <div className="bg-white p-8 md:px-10 border border-slate-300 shadow-sm text-black font-serif text-xs leading-snug page-break-after mx-auto" style={{ fontFamily: '"Times New Roman", Times, serif' }}>
+      <div className="naskah-ba-distribusi bg-white p-8 md:px-10 border border-slate-300 shadow-sm text-black leading-snug page-break-after mx-auto" style={{ fontFamily: 'Georgia, serif', fontSize: '10.5pt' }}>
         <KopSuratSekolah schoolData={schoolData} />
 
-        <div className="text-center my-3">
-          <div className="bg-[#e6b8b7] py-1 px-4 border border-[#d99694] inline-block">
-            <h2 className="text-sm font-bold uppercase tracking-wide text-black m-0">BERITA ACARA PENDISTRIBUSIAN BARANG</h2>
+        <div className="isi-ba-distribusi" style={{ fontFamily: 'Georgia, serif', fontSize: '10.5pt' }}>
+          <div className="text-center my-3">
+            <div className="bg-[#e6b8b7] py-1 px-4 border border-[#d99694] inline-block">
+              <h2 className="font-bold uppercase tracking-wide text-black m-0" style={{ fontFamily: 'Georgia, serif', fontSize: '10.5pt' }}>BERITA ACARA PENDISTRIBUSIAN BARANG</h2>
+            </div>
+            <p className="mt-1">Nomor : {trx.noBAPemeriksaan}</p>
           </div>
-          <p className="text-xs mt-1">Nomor : {trx.noBAPemeriksaan}</p>
-        </div>
 
-        <p className="text-justify mb-2 pl-4">
-          Pada hari ini <b>{tglPeriksa.hari}</b> Tanggal <b>{angkaKeTerbilang(tglPeriksa.tanggal)}</b> Bulan <b>{tglPeriksa.bulan}</b> Tahun <b>{angkaKeTerbilang(tglPeriksa.tahun)}</b> Kami yang bertanda tangan di Bawah ini :
-        </p>
+          <p className="text-justify mb-2 pl-4">
+            Pada hari ini <b>{tglPeriksa.hari}</b> Tanggal <b>{angkaKeTerbilang(tglPeriksa.tanggal)}</b> Bulan <b>{tglPeriksa.bulan}</b> Tahun <b>{angkaKeTerbilang(tglPeriksa.tahun)}</b> Kami yang bertanda tangan di Bawah ini :
+          </p>
 
-        <div className="mb-2 pl-4">
-          <table className="w-full border-collapse">
+          <div className="mb-2 pl-4">
+            <table className="w-full border-collapse">
+              <tbody>
+                <tr>
+                  <td className="w-6 align-top">1.</td>
+                  <td className="w-28 align-top">Nama</td>
+                  <td className="w-4 align-top">:</td>
+                  <td className="font-bold">{schoolData.namaLengkapPengurusBarang || 'Irwan Elvin Kadir'}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td className="align-top">Pangkat</td>
+                  <td className="align-top">:</td>
+                  <td>{schoolData.pangkatPengurusBarang || 'IX'}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td className="align-top">NIP.</td>
+                  <td className="align-top">:</td>
+                  <td>{schoolData.nipPengurusBarang}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td className="align-top">Jabatan</td>
+                  <td className="align-top">:</td>
+                  <td>Pengurus Barang</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td colSpan={3} className="pt-0.5 pb-2">selanjutnya disebut PIHAK PERTAMA</td>
+                </tr>
+
+                <tr>
+                  <td className="w-6 align-top">2.</td>
+                  <td className="w-28 align-top">Nama</td>
+                  <td className="w-4 align-top">:</td>
+                  <td className="font-bold uppercase">{trx.namaPJKegiatan || schoolData.penanggungJawabKegiatan || 'ILHAM'}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td className="align-top">Pangkat</td>
+                  <td className="align-top">:</td>
+                  <td>{trx.pangkatPJKegiatan || schoolData.pangkatPJKegiatan || 'III'}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td className="align-top">NIP.</td>
+                  <td className="align-top">:</td>
+                  <td>{trx.nipPJKegiatan || schoolData.nipPJKegiatan || '197507012025211032'}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td className="align-top">Jabatan</td>
+                  <td className="align-top">:</td>
+                  <td>{trx.jabatanPJKegiatan || schoolData.jabatanPJKegiatan || 'Penanggung Jawab Kegiatan'}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td colSpan={3} className="pt-0.5 pb-2">selanjutnya yang menerima disebut PIHAK KEDUA.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p className="text-justify mb-2 pl-4">
+            Berdasarkan SK Plt. Kepala UPT SMKN 4 Sinjai tanggal {schoolData.tglSKPengurusBarang || '2 Januari 2026'} Nomor : {schoolData.noSKPengurusBarang || '421.5/ 010- UPT SMKN.4/SJ/DISDIK Tahun 2026'} selaku pengurus barang, Telah menyerahkan barang dari <span className="uppercase font-semibold">{trx.namaPenyedia}</span> Sesuai dengan Berita Acara Penerimaan Barang nomor : {trx.noBAST} Tanggal {tglBAST.tanggal} Bulan {namaBulanBAST} Tahun {tglBAST.tahun} Dengan Keadaan Sebagai Berikut :
+          </p>
+
+          <table className="w-full border-collapse border border-black mb-2">
+            <thead>
+              <tr className="bg-[#d8e4bc] font-bold text-center">
+                <th className="border border-black p-1.5 w-10">No</th>
+                <th className="border border-black p-1.5 text-center">Jenis Barang Yang Dibeli</th>
+                <th colSpan={2} className="border border-black p-1.5 w-36 text-center">Banyaknya Barang</th>
+                <th className="border border-black p-1.5 w-16 text-center">Kurang</th>
+                <th className="border border-black p-1.5 w-16 text-center">Cukup</th>
+                <th className="border border-black p-1.5 w-16 text-center">Ket</th>
+              </tr>
+            </thead>
             <tbody>
-              <tr>
-                <td className="w-6 align-top">1.</td>
-                <td className="w-28 align-top">Nama</td>
-                <td className="w-4 align-top">:</td>
-                <td className="font-bold">{schoolData.namaLengkapPengurusBarang || 'Irwan Elvin Kadir'}</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td className="align-top">Pangkat</td>
-                <td className="align-top">:</td>
-                <td>{schoolData.pangkatPengurusBarang || 'IX'}</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td className="align-top">NIP.</td>
-                <td className="align-top">:</td>
-                <td>{schoolData.nipPengurusBarang}</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td className="align-top">Jabatan</td>
-                <td className="align-top">:</td>
-                <td>Pengurus Barang</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td colSpan={3} className="pt-0.5 pb-2">selanjutnya disebut PIHAK PERTAMA</td>
-              </tr>
-
-              <tr>
-                <td className="w-6 align-top">2.</td>
-                <td className="w-28 align-top">Nama</td>
-                <td className="w-4 align-top">:</td>
-                <td className="font-bold uppercase">{trx.namaPJKegiatan || schoolData.penanggungJawabKegiatan || 'ILHAM'}</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td className="align-top">Pangkat</td>
-                <td className="align-top">:</td>
-                <td>{trx.pangkatPJKegiatan || schoolData.pangkatPJKegiatan || 'III'}</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td className="align-top">NIP.</td>
-                <td className="align-top">:</td>
-                <td>{trx.nipPJKegiatan || schoolData.nipPJKegiatan || '197507012025211032'}</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td className="align-top">Jabatan</td>
-                <td className="align-top">:</td>
-                <td>{trx.jabatanPJKegiatan || schoolData.jabatanPJKegiatan || 'Penanggung Jawab Kegiatan'}</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td colSpan={3} className="pt-0.5 pb-2">selanjutnya yang menerima disebut PIHAK KEDUA.</td>
-              </tr>
+              {trx.items.map((item, idx) => (
+                <tr key={idx}>
+                  <td className="border border-black px-1.5 py-1 text-center">{idx + 1}</td>
+                  <td className="border border-black px-2 py-1">{item.nama}</td>
+                  <td className="border-y border-l border-black px-2 py-1 text-center w-16">{item.jumlah}</td>
+                  <td className="border-y border-r border-black px-2 py-1 text-center w-20">{item.satuan}</td>
+                  <td className="border border-black px-1.5 py-1 text-center">
+                    {item.hasilPeriksa === 'Tidak Sesuai' ? '✓' : ''}
+                  </td>
+                  <td className="border border-black px-1.5 py-1 text-center font-bold">
+                    {item.hasilPeriksa !== 'Tidak Sesuai' ? '✓' : ''}
+                  </td>
+                  <td className="border border-black px-1.5 py-1 text-center"></td>
+                </tr>
+              ))}
             </tbody>
           </table>
-        </div>
 
-        <p className="text-justify mb-2 pl-4">
-          Berdasarkan SK Plt. Kepala UPT SMKN 4 Sinjai tanggal {schoolData.tglSKPengurusBarang || '2 Januari 2026'} Nomor : {schoolData.noSKPengurusBarang || '421.5/ 010- UPT SMKN.4/SJ/DISDIK Tahun 2026'} selaku pengurus barang, Telah menyerahkan barang dari <span className="uppercase font-semibold">{trx.namaPenyedia}</span> Sesuai dengan Berita Acara Penerimaan Barang nomor : {trx.noBAST} Tanggal {tglBAST.tanggal} Bulan {namaBulanBAST} Tahun {tglBAST.tahun} Dengan Keadaan Sebagai Berikut :
-        </p>
+          <p className="text-justify mb-4 pl-4">
+            Demikian Surat Berita Pendistribusian ini dibuat dengan sebenarnya untuk dipergunakan sebagaimana seharusnya.
+          </p>
 
-        <table className="w-full border-collapse border border-black text-xs mb-2">
-          <thead>
-            <tr className="bg-[#d8e4bc] font-bold text-center">
-              <th className="border border-black p-1.5 w-10">No</th>
-              <th className="border border-black p-1.5 text-center">Jenis Barang Yang Dibeli</th>
-              <th colSpan={2} className="border border-black p-1.5 w-36 text-center">Banyaknya Barang</th>
-              <th className="border border-black p-1.5 w-16 text-center">Kurang</th>
-              <th className="border border-black p-1.5 w-16 text-center">Cukup</th>
-              <th className="border border-black p-1.5 w-16 text-center">Ket</th>
-            </tr>
-          </thead>
-          <tbody>
-            {trx.items.map((item, idx) => (
-              <tr key={idx}>
-                <td className="border border-black px-1.5 py-1 text-center">{idx + 1}</td>
-                <td className="border border-black px-2 py-1">{item.nama}</td>
-                <td className="border-y border-l border-black px-2 py-1 text-center w-16">{item.jumlah}</td>
-                <td className="border-y border-r border-black px-2 py-1 text-center w-20">{item.satuan}</td>
-                <td className="border border-black px-1.5 py-1 text-center">
-                  {item.hasilPeriksa === 'Tidak Sesuai' ? '✓' : ''}
-                </td>
-                <td className="border border-black px-1.5 py-1 text-center font-bold">
-                  {item.hasilPeriksa !== 'Tidak Sesuai' ? '✓' : ''}
-                </td>
-                <td className="border border-black px-1.5 py-1 text-center"></td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-        <p className="text-justify mb-4 pl-4">
-          Demikian Surat Berita Pendistribusian ini dibuat dengan sebenarnya untuk dipergunakan sebagaimana seharusnya.
-        </p>
-
-        <div className="flex justify-between items-end mt-4 text-xs px-2">
-          <div className="w-1/3 text-center flex flex-col justify-end min-h-[150px]">
-            <p>Yang Menyerahkan</p>
-            <p>Pengurus Barang {schoolData.namaSekolah}</p>
-            <div className="h-16"></div>
-            <p className="font-bold underline">{schoolData.pengurusBarang}</p>
-            <p>NIP. {schoolData.nipPengurusBarang.replace(/\s+/g, '')}</p>
-          </div>
-          <div className="w-1/3 text-center flex flex-col justify-end min-h-[150px]">
-            <p className="mb-0.5">{schoolData.kabupatenKota}, {tglPeriksa.lengkap}</p>
-            <p>Penanggungjawab Kegiatan,</p>
-            <div className="h-16"></div>
-            <p className="font-bold underline uppercase">{trx.namaPJKegiatan || schoolData.penanggungJawabKegiatan || 'ILHAM'}</p>
-            <p>NIP. {trx.nipPJKegiatan || schoolData.nipPJKegiatan || '197507012025211032'}</p>
-          </div>
-          <div className="w-1/3 text-center flex flex-col justify-end min-h-[150px]">
-            <p>Mengetahui,</p>
-            <p>Penanggung Jawab Dana BOSP</p>
-            <div className="h-16"></div>
-            <p className="font-bold underline">{schoolData.penanggungJawabBOSP || 'Andi Aminah.S.Pd.,Gr'}</p>
-            <p>NIP. {schoolData.nipPJBOSP || '19701009 200604 2 002'}</p>
+          <div className="flex justify-between items-end mt-4 px-2">
+            <div className="w-1/3 text-center flex flex-col justify-end min-h-[150px]">
+              <p>Yang Menyerahkan</p>
+              <p>Pengurus Barang {schoolData.namaSekolah}</p>
+              <div className="h-16"></div>
+              <p className="font-bold underline">{schoolData.pengurusBarang}</p>
+              <p>NIP. {schoolData.nipPengurusBarang.replace(/\s+/g, '')}</p>
+            </div>
+            <div className="w-1/3 text-center flex flex-col justify-end min-h-[150px]">
+              <p className="mb-0.5">{schoolData.kabupatenKota}, {tglPeriksa.lengkap}</p>
+              <p>Penanggungjawab Kegiatan,</p>
+              <div className="h-16"></div>
+              <p className="font-bold underline uppercase">{trx.namaPJKegiatan || schoolData.penanggungJawabKegiatan || 'ILHAM'}</p>
+              <p>NIP. {trx.nipPJKegiatan || schoolData.nipPJKegiatan || '197507012025211032'}</p>
+            </div>
+            <div className="w-1/3 text-center flex flex-col justify-end min-h-[150px]">
+              <p>Mengetahui,</p>
+              <p>Penanggung Jawab Dana BOSP</p>
+              <div className="h-16"></div>
+              <p className="font-bold underline">{schoolData.penanggungJawabBOSP || 'Andi Aminah.S.Pd.,Gr'}</p>
+              <p>NIP. {schoolData.nipPJBOSP || '19701009 200604 2 002'}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -2263,7 +2274,7 @@ function App() {
     iframe.style.border = '0';
     document.body.appendChild(iframe);
 
-    const htmlContent = '<!DOCTYPE html><html><head><title>Cetak SPJ BOSP - UPT SMKN 4 Sinjai</title><style>@page { size: 215mm 330mm portrait; margin: 10mm; } body { font-family: "Times New Roman", Times, serif; color: #000; margin: 0; padding: 0; background: #fff; font-size: 11pt; line-height: 1.25; -webkit-print-color-adjust: exact; print-color-adjust: exact; } table { width: 100%; border-collapse: collapse; page-break-inside: auto; } tr { page-break-inside: avoid; page-break-after: auto; } thead { display: table-header-group; } tfoot { display: table-footer-group; } th, td { padding: 4px 6px; } .page-break-after { page-break-after: always; } * { box-sizing: border-box; }</style><script src="https://cdn.tailwindcss.com"><\/script></head><body>' + kontenEl.innerHTML + '</body></html>';
+    const htmlContent = '<!DOCTYPE html><html><head><title>Cetak SPJ BOSP - UPT SMKN 4 Sinjai</title><style>@page { size: 215mm 330mm portrait; margin: 10mm; } body { font-family: "Times New Roman", Times, serif; color: #000; margin: 0; padding: 0; background: #fff; font-size: 11pt; line-height: 1.25; -webkit-print-color-adjust: exact; print-color-adjust: exact; } .naskah-ba-distribusi, .naskah-ba-distribusi .isi-ba-distribusi, .naskah-ba-distribusi .isi-ba-distribusi p, .naskah-ba-distribusi .isi-ba-distribusi td, .naskah-ba-distribusi .isi-ba-distribusi th, .naskah-ba-distribusi .isi-ba-distribusi h2 { font-family: Georgia, serif !important; font-size: 10.5pt !important; } table { width: 100%; border-collapse: collapse; page-break-inside: auto; } tr { page-break-inside: avoid; page-break-after: auto; } thead { display: table-header-group; } tfoot { display: table-footer-group; } th, td { padding: 4px 6px; } .page-break-after { page-break-after: always; } * { box-sizing: border-box; }</style><script src="https://cdn.tailwindcss.com"><\/script></head><body>' + kontenEl.innerHTML + '</body></html>';
 
     const doc = iframe.contentWindow.document;
     doc.open();
