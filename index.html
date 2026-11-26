@@ -68,7 +68,21 @@
       .naskah-ba-distribusi .isi-ba-distribusi p,
       .naskah-ba-distribusi .isi-ba-distribusi td,
       .naskah-ba-distribusi .isi-ba-distribusi th,
-      .naskah-ba-distribusi .isi-ba-distribusi h2 {
+      .naskah-ba-distribusi .isi-ba-distribusi h2,
+      .naskah-bast,
+      .naskah-bast .isi-bast,
+      .naskah-bast .isi-bast p,
+      .naskah-bast .isi-bast td,
+      .naskah-bast .isi-bast th,
+      .naskah-bast .isi-bast h2,
+      .naskah-bast .isi-bast span,
+      .naskah-bap,
+      .naskah-bap .isi-bap,
+      .naskah-bap .isi-bap p,
+      .naskah-bap .isi-bap td,
+      .naskah-bap .isi-bap th,
+      .naskah-bap .isi-bap h2,
+      .naskah-bap .isi-bap span {
         font-family: Georgia, serif !important;
         font-size: 10.5pt !important;
       }
@@ -758,9 +772,9 @@ const DokumenSPJRenderer = ({ jenisDokumen, trx, schoolData, onOpenAddPhotoModal
           <p><span className="font-bold">Sumber Dana :</span> {trx.sumberDana}</p>
           <p><span className="font-bold">Komponen BOSP :</span> {trx.komponen}</p>
         </div>
-        <div className="border-2 border-black px-3 py-1.5 bg-slate-50">
-          <p className="font-bold">NOMOR KWITANSI :</p>
-          <p className="font-mono text-sm font-extrabold">{trx.noKwitansi}</p>
+        <div className="border-2 border-black px-2.5 py-1 bg-slate-50 mr-6">
+          <p className="font-bold text-[10px] leading-tight">NOMOR KWITANSI :</p>
+          <p className="font-mono text-[11px] font-extrabold leading-tight">{trx.noKwitansi}</p>
         </div>
       </div>
 
@@ -1043,114 +1057,116 @@ const DokumenSPJRenderer = ({ jenisDokumen, trx, schoolData, onOpenAddPhotoModal
     ][tglPesanObj.getMonth()] || '-';
 
     return (
-      <div className="bg-white p-8 md:px-10 border border-slate-300 shadow-sm text-black font-serif text-xs leading-snug page-break-after mx-auto" style={{ fontFamily: '"Times New Roman", Times, serif' }}>
+      <div className="naskah-bap bg-white p-8 md:px-10 border border-slate-300 shadow-sm text-black leading-snug page-break-after mx-auto" style={{ fontFamily: 'Georgia, serif', fontSize: '10.5pt' }}>
         <KopSuratSekolah schoolData={schoolData} />
 
-        <div className="text-center my-3">
-          <div className="bg-[#e6b8b7] py-1 px-4 border border-[#d99694] inline-block">
-            <h2 className="text-sm font-bold uppercase tracking-wide text-black m-0">BERITA ACARA PEMERIKSAAN BARANG</h2>
+        <div className="isi-bap" style={{ fontFamily: 'Georgia, serif', fontSize: '10.5pt' }}>
+          <div className="text-center my-3">
+            <div className="bg-[#e6b8b7] py-1 px-4 border border-[#d99694] inline-block">
+              <h2 className="font-bold uppercase tracking-wide text-black m-0" style={{ fontFamily: 'Georgia, serif', fontSize: '10.5pt' }}>BERITA ACARA PEMERIKSAAN BARANG</h2>
+            </div>
+            <p className="mt-1">Nomor : {trx.noBAPenerimaan}</p>
           </div>
-          <p className="text-xs mt-1">Nomor : {trx.noBAPenerimaan}</p>
-        </div>
 
-        <p className="text-justify mb-2 pl-4">
-          Pada hari ini <b>{tglTerima.hari}</b> Tanggal <b>{angkaKeTerbilang(tglTerima.tanggal)}</b> Bulan <b>{tglTerima.bulan}</b> Tahun <b>{angkaKeTerbilang(tglTerima.tahun)}</b> Kami yang bertanda tangan di bawah ini :
-        </p>
+          <p className="text-justify mb-2 pl-4">
+            Pada hari ini <b>{tglTerima.hari}</b> Tanggal <b>{angkaKeTerbilang(tglTerima.tanggal)}</b> Bulan <b>{tglTerima.bulan}</b> Tahun <b>{angkaKeTerbilang(tglTerima.tahun)}</b> Kami yang bertanda tangan di bawah ini :
+          </p>
 
-        <div className="mb-2 pl-4 space-y-2">
-          <table className="w-full border-collapse">
-            <tbody>
-              <tr>
-                <td className="w-6 align-top">1.</td>
-                <td className="w-28 align-top">Nama</td>
-                <td className="w-4 align-top">:</td>
-                <td className="font-bold uppercase">{schoolData.pengurusBarang.replace(/,?\s*S\.Pd\.?/i, '')}</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td className="align-top">Pangkat</td>
-                <td className="align-top">:</td>
-                <td>{schoolData.pangkatPengurusBarang || 'IX'}</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td className="align-top">NIP.</td>
-                <td className="align-top">:</td>
-                <td>{schoolData.nipPengurusBarang}</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td className="align-top">Jabatan</td>
-                <td className="align-top">:</td>
-                <td>Pengurus Barang</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td colSpan={3} className="pt-0.5 pb-2">selanjutnya disebut <b>PIHAK PERTAMA</b></td>
-              </tr>
-              <tr>
-                <td className="w-6 align-top">2.</td>
-                <td className="w-28 align-top">N a m a</td>
-                <td className="w-4 align-top">:</td>
-                <td className="font-bold">{trx.namaPemilikPenyedia}</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td className="align-top">Jabatan</td>
-                <td className="align-top">:</td>
-                <td className="uppercase">{trx.namaPenyedia}</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td className="align-top">NPWP</td>
-                <td className="align-top">:</td>
-                <td>{trx.npwpPenyedia || '-'}</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td className="align-top">Alamat</td>
-                <td className="align-top">:</td>
-                <td className="uppercase">{trx.alamatPenyedia}</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td colSpan={3} className="pt-0.5 pb-1">selanjutnya disebut <b>PIHAK KEDUA</b>.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <p className="text-justify mb-2 leading-snug pl-4">
-          Berdasarkan Surat Keputusan Pelaksana Tugas Kepala UPT SMKN 4 Sinjai tanggal {schoolData.tglSKPengurusBarang || '2 Januari 2026'} Nomor : {schoolData.noSKPengurusBarang || '421.5/ 010- UPT SMKN.4/SJ/DISDIK Tahun 2026'} selaku pengurus barang, Telah memeriksa barang dengan teliti sebagaimana daftar terlampir yang diserahkan oleh <span className="uppercase font-semibold">{trx.namaPenyedia}</span> Selaku Penyedia Barang berdasarkan Surat Pesanan nomor : {trx.noNotaPesanan} pada Tanggal {tglPesan.tanggal} Bulan {namaBulanPesan} Tahun {tglPesan.tahun} Dengan Kesimpulan Sebagai Berikut :
-        </p>
-
-        <div className="pl-12 mb-2 space-y-1">
-          <p className="text-justify">a. &nbsp; Terdapat baik dan cukup sesuai surat Pesanan / SPK / Pengantar</p>
-          <p className="text-justify line-through text-slate-700">b. &nbsp; Kurang Baik / Tidak Baik / Tidak Ada.</p>
-        </div>
-
-        <p className="text-justify mb-2 pl-4">
-          Barang yang terdapat baik, kami beri tanda (&#10003;) yang selanjutnya akan diserahkan oleh Rekanan kepada Pengurus Barang, sedang yang tidak baik, kurang baik diberi tanda (X).
-        </p>
-
-        <p className="text-justify mb-4 pl-4">
-          Demikian Berita Acara ini dibuat untuk dipergunakan sebagaimana mestinya.
-        </p>
-
-        <div className="flex justify-between items-end mt-6 text-xs px-8">
-          <div className="text-center w-64 flex flex-col justify-end min-h-[140px]">
-            <p>Penyedia Barang / Rekanan</p>
-            <div className="h-16"></div>
-            <p className="font-bold underline uppercase">{trx.namaPemilikPenyedia}</p>
-            <p>{trx.jabatanPenyedia || 'Direktur / Pemilik'}</p>
+          <div className="mb-2 pl-4 space-y-2">
+            <table className="w-full border-collapse">
+              <tbody>
+                <tr>
+                  <td className="w-6 align-top">1.</td>
+                  <td className="w-28 align-top">Nama</td>
+                  <td className="w-4 align-top">:</td>
+                  <td className="font-bold uppercase">{schoolData.pengurusBarang.replace(/,?\s*S\.Pd\.?/i, '')}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td className="align-top">Pangkat</td>
+                  <td className="align-top">:</td>
+                  <td>{schoolData.pangkatPengurusBarang || 'IX'}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td className="align-top">NIP.</td>
+                  <td className="align-top">:</td>
+                  <td>{schoolData.nipPengurusBarang}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td className="align-top">Jabatan</td>
+                  <td className="align-top">:</td>
+                  <td>Pengurus Barang</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td colSpan={3} className="pt-0.5 pb-2">selanjutnya disebut <b>PIHAK PERTAMA</b></td>
+                </tr>
+                <tr>
+                  <td className="w-6 align-top">2.</td>
+                  <td className="w-28 align-top">N a m a</td>
+                  <td className="w-4 align-top">:</td>
+                  <td className="font-bold">{trx.namaPemilikPenyedia}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td className="align-top">Jabatan</td>
+                  <td className="align-top">:</td>
+                  <td className="uppercase">{trx.namaPenyedia}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td className="align-top">NPWP</td>
+                  <td className="align-top">:</td>
+                  <td>{trx.npwpPenyedia || '-'}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td className="align-top">Alamat</td>
+                  <td className="align-top">:</td>
+                  <td className="uppercase">{trx.alamatPenyedia}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td colSpan={3} className="pt-0.5 pb-1">selanjutnya disebut <b>PIHAK KEDUA</b>.</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <div className="text-center w-64 flex flex-col justify-end min-h-[140px]">
-            <p className="mb-1">{schoolData.kabupatenKota}, {tglTerima.lengkap}</p>
-            <p>Penerima Barang,</p>
-            <p>Pengurus Barang {schoolData.namaSekolah}</p>
-            <div className="h-16"></div>
-            <p className="font-bold underline">{schoolData.pengurusBarang}</p>
-            <p>NIP. {schoolData.nipPengurusBarang.replace(/\s+/g, '')}</p>
+
+          <p className="text-justify mb-2 leading-snug pl-4">
+            Berdasarkan Surat Keputusan Pelaksana Tugas Kepala UPT SMKN 4 Sinjai tanggal {schoolData.tglSKPengurusBarang || '2 Januari 2026'} Nomor : {schoolData.noSKPengurusBarang || '421.5/ 010- UPT SMKN.4/SJ/DISDIK Tahun 2026'} selaku pengurus barang, Telah memeriksa barang dengan teliti sebagaimana daftar terlampir yang diserahkan oleh <span className="uppercase font-semibold">{trx.namaPenyedia}</span> Selaku Penyedia Barang berdasarkan Surat Pesanan nomor : {trx.noNotaPesanan} pada Tanggal {tglPesan.tanggal} Bulan {namaBulanPesan} Tahun {tglPesan.tahun} Dengan Kesimpulan Sebagai Berikut :
+          </p>
+
+          <div className="pl-12 mb-2 space-y-1">
+            <p className="text-justify">a. &nbsp; Terdapat baik dan cukup sesuai surat Pesanan / SPK / Pengantar</p>
+            <p className="text-justify line-through text-slate-700">b. &nbsp; Kurang Baik / Tidak Baik / Tidak Ada.</p>
+          </div>
+
+          <p className="text-justify mb-2 pl-4">
+            Barang yang terdapat baik, kami beri tanda (&#10003;) yang selanjutnya akan diserahkan oleh Rekanan kepada Pengurus Barang, sedang yang tidak baik, kurang baik diberi tanda (X).
+          </p>
+
+          <p className="text-justify mb-4 pl-4">
+            Demikian Berita Acara ini dibuat untuk dipergunakan sebagaimana mestinya.
+          </p>
+
+          <div className="flex justify-between items-end mt-6 px-8">
+            <div className="text-center w-64 flex flex-col justify-end min-h-[140px]">
+              <p>Penyedia Barang / Rekanan</p>
+              <div className="h-16"></div>
+              <p className="font-bold underline uppercase">{trx.namaPemilikPenyedia}</p>
+              <p>{trx.jabatanPenyedia || 'Direktur / Pemilik'}</p>
+            </div>
+            <div className="text-center w-64 flex flex-col justify-end min-h-[140px]">
+              <p className="mb-1">{schoolData.kabupatenKota}, {tglTerima.lengkap}</p>
+              <p>Penerima Barang,</p>
+              <p>Pengurus Barang {schoolData.namaSekolah}</p>
+              <div className="h-16"></div>
+              <p className="font-bold underline">{schoolData.pengurusBarang}</p>
+              <p>NIP. {schoolData.nipPengurusBarang.replace(/\s+/g, '')}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -1164,137 +1180,139 @@ const DokumenSPJRenderer = ({ jenisDokumen, trx, schoolData, onOpenAddPhotoModal
     const totalLampiran = subtotalBarang + ppnNilai + pph22Nilai - (trx.diskon || 0);
 
     return (
-      <div className="bg-white p-8 md:px-10 border border-slate-300 shadow-sm text-black font-serif text-xs leading-snug page-break-after mx-auto" style={{ fontFamily: '"Times New Roman", Times, serif' }}>
-        <div className="text-center mb-4">
-          <h2 className="text-sm font-bold uppercase tracking-wide">LAMPIRAN BERITA ACARA PEMERIKSAAN BARANG</h2>
-          <p className="text-xs mt-0.5">Nomor : {trx.noBAPenerimaan}</p>
-        </div>
+      <div className="naskah-bap bg-white p-8 md:px-10 border border-slate-300 shadow-sm text-black leading-snug page-break-after mx-auto" style={{ fontFamily: 'Georgia, serif', fontSize: '10.5pt' }}>
+        <div className="isi-bap" style={{ fontFamily: 'Georgia, serif', fontSize: '10.5pt' }}>
+          <div className="text-center mb-4">
+            <h2 className="font-bold uppercase tracking-wide" style={{ fontFamily: 'Georgia, serif', fontSize: '10.5pt' }}>LAMPIRAN BERITA ACARA PEMERIKSAAN BARANG</h2>
+            <p className="mt-0.5">Nomor : {trx.noBAPenerimaan}</p>
+          </div>
 
-        <table className="w-full border-collapse border border-black text-xs mb-2">
-          <thead>
-            <tr className="bg-[#d8e4bc] font-bold text-center">
-              <th rowSpan={2} className="border border-black p-1.5 w-10">NO.</th>
-              <th rowSpan={2} className="border border-black p-1.5 text-center">Jenis Barang Yang Dibeli</th>
-              <th rowSpan={2} className="border border-black p-1.5 w-28 text-center">Nomor Surat Pesanan</th>
-              <th colSpan={3} className="border border-black p-1.5 text-center">JUMLAH</th>
-              <th rowSpan={2} className="border border-black p-1.5 w-12 text-center">KET.</th>
-            </tr>
-            <tr className="bg-[#d8e4bc] font-bold text-center">
-              <th className="border border-black p-1.5 w-24">Banyaknya Barang</th>
-              <th className="border border-black p-1.5 w-28">Harga Satuan</th>
-              <th className="border border-black p-1.5 w-28">Jumlah Harga</th>
-            </tr>
-            <tr className="bg-[#ebf1de] italic text-[11px] text-center font-semibold">
-              <td className="border border-black py-0.5">1</td>
-              <td className="border border-black py-0.5">2</td>
-              <td className="border border-black py-0.5">3</td>
-              <td className="border border-black py-0.5">4</td>
-              <td className="border border-black py-0.5">5</td>
-              <td className="border border-black py-0.5">6</td>
-              <td className="border border-black py-0.5">7</td>
-            </tr>
-          </thead>
-          <tbody>
-            {trx.items.map((item, idx) => (
-              <tr key={idx} className="align-top">
-                <td className="border-x border-black px-1.5 py-1 text-center">{idx + 1}</td>
-                <td className="border-x border-black px-2 py-1">{item.nama}</td>
-                {idx === 0 && (
-                  <td
-                    rowSpan={trx.items.length}
-                    className="border-x border-black px-1.5 py-1 text-center align-middle break-all font-mono text-[11px]"
-                  >
-                    {trx.noNotaPesanan}
+          <table className="w-full border-collapse border border-black mb-2">
+            <thead>
+              <tr className="bg-[#d8e4bc] font-bold text-center">
+                <th rowSpan={2} className="border border-black p-1.5 w-10">NO.</th>
+                <th rowSpan={2} className="border border-black p-1.5 text-center">Jenis Barang Yang Dibeli</th>
+                <th rowSpan={2} className="border border-black p-1.5 w-28 text-center">Nomor Surat Pesanan</th>
+                <th colSpan={3} className="border border-black p-1.5 text-center">JUMLAH</th>
+                <th rowSpan={2} className="border border-black p-1.5 w-12 text-center">KET.</th>
+              </tr>
+              <tr className="bg-[#d8e4bc] font-bold text-center">
+                <th className="border border-black p-1.5 w-24">Banyaknya Barang</th>
+                <th className="border border-black p-1.5 w-28">Harga Satuan</th>
+                <th className="border border-black p-1.5 w-28">Jumlah Harga</th>
+              </tr>
+              <tr className="bg-[#ebf1de] italic text-center font-semibold">
+                <td className="border border-black py-0.5">1</td>
+                <td className="border border-black py-0.5">2</td>
+                <td className="border border-black py-0.5">3</td>
+                <td className="border border-black py-0.5">4</td>
+                <td className="border border-black py-0.5">5</td>
+                <td className="border border-black py-0.5">6</td>
+                <td className="border border-black py-0.5">7</td>
+              </tr>
+            </thead>
+            <tbody>
+              {trx.items.map((item, idx) => (
+                <tr key={idx} className="align-top">
+                  <td className="border-x border-black px-1.5 py-1 text-center">{idx + 1}</td>
+                  <td className="border-x border-black px-2 py-1">{item.nama}</td>
+                  {idx === 0 && (
+                    <td
+                      rowSpan={trx.items.length}
+                      className="border-x border-black px-1.5 py-1 text-center align-middle break-all"
+                    >
+                      {trx.noNotaPesanan}
+                    </td>
+                  )}
+                  <td className="border-x border-black px-1.5 py-1">
+                    <div className="flex justify-between">
+                      <span className="font-semibold">{item.jumlah}</span>
+                      <span>{item.satuan}</span>
+                    </div>
                   </td>
-                )}
-                <td className="border-x border-black px-1.5 py-1">
-                  <div className="flex justify-between">
-                    <span className="font-semibold">{item.jumlah}</span>
-                    <span>{item.satuan}</span>
+                  <td className="border-x border-black px-2 py-1 text-right">
+                    {new Intl.NumberFormat('id-ID').format(item.harga)}
+                  </td>
+                  <td className="border-x border-black px-2 py-1 text-right">
+                    {new Intl.NumberFormat('id-ID').format(item.jumlah * item.harga)}
+                  </td>
+                  <td className="border-x border-black px-1.5 py-1 text-center font-bold">&#10003;</td>
+                </tr>
+              ))}
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colSpan={3} className="border border-black px-2 py-1 text-right font-semibold">JUMLAH</td>
+                <td className="border border-black bg-[#d9d9d9]"></td>
+                <td className="border border-black bg-[#d9d9d9]"></td>
+                <td className="border border-black px-2 py-1">
+                  <div className="flex justify-between font-semibold">
+                    <span>Rp</span>
+                    <span>{new Intl.NumberFormat('id-ID').format(subtotalBarang)}</span>
                   </div>
                 </td>
-                <td className="border-x border-black px-2 py-1 text-right">
-                  {new Intl.NumberFormat('id-ID').format(item.harga)}
-                </td>
-                <td className="border-x border-black px-2 py-1 text-right">
-                  {new Intl.NumberFormat('id-ID').format(item.jumlah * item.harga)}
-                </td>
-                <td className="border-x border-black px-1.5 py-1 text-center font-bold">&#10003;</td>
+                <td className="border border-black"></td>
               </tr>
-            ))}
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colSpan={3} className="border border-black px-2 py-1 text-right font-semibold">JUMLAH</td>
-              <td className="border border-black bg-[#d9d9d9]"></td>
-              <td className="border border-black bg-[#d9d9d9]"></td>
-              <td className="border border-black px-2 py-1">
-                <div className="flex justify-between font-semibold">
-                  <span>Rp</span>
-                  <span>{new Intl.NumberFormat('id-ID').format(subtotalBarang)}</span>
-                </div>
-              </td>
-              <td className="border border-black"></td>
-            </tr>
-            <tr>
-              <td colSpan={3} className="border border-black px-2 py-1 text-right">PPN 11 % = RP.</td>
-              <td className="border border-black bg-[#d9d9d9]"></td>
-              <td className="border border-black bg-[#d9d9d9]"></td>
-              <td className="border border-black px-2 py-1">
-                <div className="flex justify-between text-slate-600">
-                  <span>Rp</span>
-                  <span>{ppnNilai > 0 ? new Intl.NumberFormat('id-ID').format(ppnNilai) : '-'}</span>
-                </div>
-              </td>
-              <td className="border border-black"></td>
-            </tr>
-            <tr>
-              <td colSpan={3} className="border border-black px-2 py-1 text-right">PPh 22 = RP.</td>
-              <td className="border border-black bg-[#d9d9d9]"></td>
-              <td className="border border-black bg-[#d9d9d9]"></td>
-              <td className="border border-black px-2 py-1">
-                <div className="flex justify-between text-slate-600">
-                  <span>Rp</span>
-                  <span>{pph22Nilai > 0 ? new Intl.NumberFormat('id-ID').format(pph22Nilai) : '-'}</span>
-                </div>
-              </td>
-              <td className="border border-black"></td>
-            </tr>
-            <tr className="font-bold">
-              <td colSpan={3} className="border border-black px-2 py-1 text-right">TOTAL = RP.</td>
-              <td className="border border-black bg-[#d9d9d9]"></td>
-              <td className="border border-black bg-[#d9d9d9]"></td>
-              <td className="border border-black px-2 py-1">
-                <div className="flex justify-between">
-                  <span>Rp</span>
-                  <span>{new Intl.NumberFormat('id-ID').format(totalLampiran)}</span>
-                </div>
-              </td>
-              <td className="border border-black"></td>
-            </tr>
-            <tr>
-              <td colSpan={2} className="border border-black px-2 py-1.5">Dengan huruf</td>
-              <td colSpan={5} className="border border-black px-3 py-1.5 font-bold italic">
-                {formatTerbilang(totalLampiran)}
-              </td>
-            </tr>
-          </tfoot>
-        </table>
+              <tr>
+                <td colSpan={3} className="border border-black px-2 py-1 text-right">PPN 11 % = RP.</td>
+                <td className="border border-black bg-[#d9d9d9]"></td>
+                <td className="border border-black bg-[#d9d9d9]"></td>
+                <td className="border border-black px-2 py-1">
+                  <div className="flex justify-between text-slate-600">
+                    <span>Rp</span>
+                    <span>{ppnNilai > 0 ? new Intl.NumberFormat('id-ID').format(ppnNilai) : '-'}</span>
+                  </div>
+                </td>
+                <td className="border border-black"></td>
+              </tr>
+              <tr>
+                <td colSpan={3} className="border border-black px-2 py-1 text-right">PPh 22 = RP.</td>
+                <td className="border border-black bg-[#d9d9d9]"></td>
+                <td className="border border-black bg-[#d9d9d9]"></td>
+                <td className="border border-black px-2 py-1">
+                  <div className="flex justify-between text-slate-600">
+                    <span>Rp</span>
+                    <span>{pph22Nilai > 0 ? new Intl.NumberFormat('id-ID').format(pph22Nilai) : '-'}</span>
+                  </div>
+                </td>
+                <td className="border border-black"></td>
+              </tr>
+              <tr className="font-bold">
+                <td colSpan={3} className="border border-black px-2 py-1 text-right">TOTAL = RP.</td>
+                <td className="border border-black bg-[#d9d9d9]"></td>
+                <td className="border border-black bg-[#d9d9d9]"></td>
+                <td className="border border-black px-2 py-1">
+                  <div className="flex justify-between">
+                    <span>Rp</span>
+                    <span>{new Intl.NumberFormat('id-ID').format(totalLampiran)}</span>
+                  </div>
+                </td>
+                <td className="border border-black"></td>
+              </tr>
+              <tr>
+                <td colSpan={2} className="border border-black px-2 py-1.5">Dengan huruf</td>
+                <td colSpan={5} className="border border-black px-3 py-1.5 font-bold italic">
+                  {formatTerbilang(totalLampiran)}
+                </td>
+              </tr>
+            </tfoot>
+          </table>
 
-        <div className="flex justify-between items-end mt-8 text-xs px-8">
-          <div className="text-center w-64 flex flex-col justify-end min-h-[140px]">
-            <p>Penyedia Barang / Rekanan</p>
-            <div className="h-16"></div>
-            <p className="font-bold underline uppercase">{trx.namaPemilikPenyedia}</p>
-            <p>{trx.jabatanPenyedia || 'Direktur / Pemilik'}</p>
-          </div>
-          <div className="text-center w-64 flex flex-col justify-end min-h-[140px]">
-            <p className="mb-1">{schoolData.kabupatenKota}, {tglTerima.lengkap}</p>
-            <p>Penerima Barang,</p>
-            <p>Pengurus Barang {schoolData.namaSekolah}</p>
-            <div className="h-16"></div>
-            <p className="font-bold underline">{schoolData.pengurusBarang}</p>
-            <p>NIP. {schoolData.nipPengurusBarang.replace(/\s+/g, '')}</p>
+          <div className="flex justify-between items-end mt-8 px-8">
+            <div className="text-center w-64 flex flex-col justify-end min-h-[140px]">
+              <p>Penyedia Barang / Rekanan</p>
+              <div className="h-16"></div>
+              <p className="font-bold underline uppercase">{trx.namaPemilikPenyedia}</p>
+              <p>{trx.jabatanPenyedia || 'Direktur / Pemilik'}</p>
+            </div>
+            <div className="text-center w-64 flex flex-col justify-end min-h-[140px]">
+              <p className="mb-1">{schoolData.kabupatenKota}, {tglTerima.lengkap}</p>
+              <p>Penerima Barang,</p>
+              <p>Pengurus Barang {schoolData.namaSekolah}</p>
+              <div className="h-16"></div>
+              <p className="font-bold underline">{schoolData.pengurusBarang}</p>
+              <p>NIP. {schoolData.nipPengurusBarang.replace(/\s+/g, '')}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -1464,110 +1482,112 @@ const DokumenSPJRenderer = ({ jenisDokumen, trx, schoolData, onOpenAddPhotoModal
     ][tglPeriksaObj.getMonth()] || '-';
 
     return (
-      <div className="bg-white p-8 md:px-10 border border-slate-300 shadow-sm text-black font-serif text-xs leading-snug page-break-after mx-auto" style={{ fontFamily: '"Times New Roman", Times, serif' }}>
+      <div className="naskah-bast bg-white p-8 md:px-10 border border-slate-300 shadow-sm text-black leading-snug page-break-after mx-auto" style={{ fontFamily: 'Georgia, serif', fontSize: '10.5pt' }}>
         <KopSuratSekolah schoolData={schoolData} />
 
-        <div className="text-center my-3">
-          <div className="bg-[#e6b8b7] py-1 px-4 border border-[#d99694] inline-block">
-            <h2 className="text-sm font-bold uppercase tracking-wide text-black m-0">BERITA ACARA SERAH TERIMA BARANG</h2>
+        <div className="isi-bast" style={{ fontFamily: 'Georgia, serif', fontSize: '10.5pt' }}>
+          <div className="text-center my-3">
+            <div className="bg-[#e6b8b7] py-1 px-4 border border-[#d99694] inline-block">
+              <h2 className="font-bold uppercase tracking-wide text-black m-0" style={{ fontFamily: 'Georgia, serif', fontSize: '10.5pt' }}>BERITA ACARA SERAH TERIMA BARANG</h2>
+            </div>
+            <p className="mt-1">Nomor : {trx.noBAST}</p>
           </div>
-          <p className="text-xs mt-1">Nomor : {trx.noBAST}</p>
-        </div>
 
-        <p className="text-justify mb-2 pl-4">
-          Pada hari ini <b>{tglBAST.hari}</b> Tanggal <b>{angkaKeTerbilang(tglBAST.tanggal)}</b> Bulan <b>{tglBAST.bulan}</b> Tahun <b>{angkaKeTerbilang(tglBAST.tahun)}</b> Kami yang bertanda tangan di bawah ini :
-        </p>
+          <p className="text-justify mb-2 pl-4">
+            Pada hari ini <b>{tglBAST.hari}</b> Tanggal <b>{angkaKeTerbilang(tglBAST.tanggal)}</b> Bulan <b>{tglBAST.bulan}</b> Tahun <b>{angkaKeTerbilang(tglBAST.tahun)}</b> Kami yang bertanda tangan di bawah ini :
+          </p>
 
-        <div className="mb-2 pl-4 space-y-2">
-          <table className="w-full border-collapse">
-            <tbody>
-              <tr>
-                <td className="w-6 align-top">1.</td>
-                <td className="w-28 align-top">Nama</td>
-                <td className="w-4 align-top">:</td>
-                <td className="font-bold uppercase">{schoolData.pengurusBarang.replace(/,?\s*S\.Pd\.?/i, '')}</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td className="align-top">Pangkat</td>
-                <td className="align-top">:</td>
-                <td>{schoolData.pangkatPengurusBarang || 'IX'}</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td className="align-top">NIP.</td>
-                <td className="align-top">:</td>
-                <td>{schoolData.nipPengurusBarang}</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td className="align-top">Jabatan</td>
-                <td className="align-top">:</td>
-                <td>Pengurus Barang</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td colSpan={3} className="pt-0.5 pb-2">selanjutnya disebut <b>PIHAK PERTAMA</b></td>
-              </tr>
-              <tr>
-                <td className="w-6 align-top">2.</td>
-                <td className="w-28 align-top">N a m a</td>
-                <td className="w-4 align-top">:</td>
-                <td className="font-bold">{trx.namaPemilikPenyedia}</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td className="align-top">Jabatan</td>
-                <td className="align-top">:</td>
-                <td className="uppercase">{trx.namaPenyedia}</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td className="align-top">NPWP</td>
-                <td className="align-top">:</td>
-                <td>{trx.npwpPenyedia || '-'}</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td className="align-top">Alamat</td>
-                <td className="align-top">:</td>
-                <td className="uppercase">{trx.alamatPenyedia}</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td colSpan={3} className="pt-0.5 pb-1">selanjutnya disebut <b>PIHAK KEDUA</b>.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <p className="text-justify mb-2 leading-snug pl-4">
-          Berdasarkan SK Pelaksana Tugas Kepala UPT SMKN 4 Sinjai tanggal {schoolData.tglSKPengurusBarang || '2 Januari 2026'} Nomor : {schoolData.noSKPengurusBarang || '421.5/ 010- UPT SMKN.4/SJ/DISDIK Tahun 2026'} selaku pengurus barang, Telah menerima barang sesuai dengan Berita Acara Pemeriksaan Barang nomor : {trx.noBAPenerimaan} pada Tanggal {tglPeriksa.tanggal} Bulan {namaBulanPeriksa} Tahun {tglPeriksa.tahun} Dengan Kesimpulan Sebagai Berikut :
-        </p>
-
-        <p className="text-justify mb-2 pl-4">
-          Barang yang terdapat baik, kami beri tanda (&#10003;) yang selanjutnya akan diserahkan oleh Rekanan kepada Pengurus Barang, sedang yang tidak baik, kurang baik diberi tanda (X).
-        </p>
-
-        <p className="text-justify mb-4 pl-4">
-          Demikian Berita Acara Penerimaan Barang ini dibuat untuk dipergunakan sebagaimana mestinya.
-        </p>
-
-        <div className="flex justify-between items-end mt-6 text-xs px-8">
-          <div className="text-center w-64 flex flex-col justify-end min-h-[140px]">
-            <p>Pihak Kedua,</p>
-            <p>Penyedia Barang / Rekanan</p>
-            <div className="h-16"></div>
-            <p className="font-bold underline uppercase">{trx.namaPemilikPenyedia}</p>
-            <p>{trx.jabatanPenyedia || 'Direktur / Pemilik'}</p>
+          <div className="mb-2 pl-4 space-y-2">
+            <table className="w-full border-collapse">
+              <tbody>
+                <tr>
+                  <td className="w-6 align-top">1.</td>
+                  <td className="w-28 align-top">Nama</td>
+                  <td className="w-4 align-top">:</td>
+                  <td className="font-bold uppercase">{schoolData.pengurusBarang.replace(/,?\s*S\.Pd\.?/i, '')}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td className="align-top">Pangkat</td>
+                  <td className="align-top">:</td>
+                  <td>{schoolData.pangkatPengurusBarang || 'IX'}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td className="align-top">NIP.</td>
+                  <td className="align-top">:</td>
+                  <td>{schoolData.nipPengurusBarang}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td className="align-top">Jabatan</td>
+                  <td className="align-top">:</td>
+                  <td>Pengurus Barang</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td colSpan={3} className="pt-0.5 pb-2">selanjutnya disebut <b>PIHAK PERTAMA</b></td>
+                </tr>
+                <tr>
+                  <td className="w-6 align-top">2.</td>
+                  <td className="w-28 align-top">N a m a</td>
+                  <td className="w-4 align-top">:</td>
+                  <td className="font-bold">{trx.namaPemilikPenyedia}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td className="align-top">Jabatan</td>
+                  <td className="align-top">:</td>
+                  <td className="uppercase">{trx.namaPenyedia}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td className="align-top">NPWP</td>
+                  <td className="align-top">:</td>
+                  <td>{trx.npwpPenyedia || '-'}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td className="align-top">Alamat</td>
+                  <td className="align-top">:</td>
+                  <td className="uppercase">{trx.alamatPenyedia}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td colSpan={3} className="pt-0.5 pb-1">selanjutnya disebut <b>PIHAK KEDUA</b>.</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <div className="text-center w-64 flex flex-col justify-end min-h-[140px]">
-            <p className="mb-1">{schoolData.kabupatenKota}, {tglBAST.lengkap}</p>
-            <p>Pihak Pertama,</p>
-            <p>Pengurus Barang {schoolData.namaSekolah}</p>
-            <div className="h-16"></div>
-            <p className="font-bold underline">{schoolData.pengurusBarang}</p>
-            <p>NIP. {schoolData.nipPengurusBarang.replace(/\s+/g, '')}</p>
+
+          <p className="text-justify mb-2 leading-snug pl-4">
+            Berdasarkan SK Pelaksana Tugas Kepala UPT SMKN 4 Sinjai tanggal {schoolData.tglSKPengurusBarang || '2 Januari 2026'} Nomor : {schoolData.noSKPengurusBarang || '421.5/ 010- UPT SMKN.4/SJ/DISDIK Tahun 2026'} selaku pengurus barang, Telah menerima barang sesuai dengan Berita Acara Pemeriksaan Barang nomor : {trx.noBAPenerimaan} pada Tanggal {tglPeriksa.tanggal} Bulan {namaBulanPeriksa} Tahun {tglPeriksa.tahun} Dengan Kesimpulan Sebagai Berikut :
+          </p>
+
+          <p className="text-justify mb-2 pl-4">
+            Barang yang terdapat baik, kami beri tanda (&#10003;) yang selanjutnya akan diserahkan oleh Rekanan kepada Pengurus Barang, sedang yang tidak baik, kurang baik diberi tanda (X).
+          </p>
+
+          <p className="text-justify mb-4 pl-4">
+            Demikian Berita Acara Penerimaan Barang ini dibuat untuk dipergunakan sebagaimana mestinya.
+          </p>
+
+          <div className="flex justify-between items-end mt-6 px-8">
+            <div className="text-center w-64 flex flex-col justify-end min-h-[140px]">
+              <p>Pihak Kedua,</p>
+              <p>Penyedia Barang / Rekanan</p>
+              <div className="h-16"></div>
+              <p className="font-bold underline uppercase">{trx.namaPemilikPenyedia}</p>
+              <p>{trx.jabatanPenyedia || 'Direktur / Pemilik'}</p>
+            </div>
+            <div className="text-center w-64 flex flex-col justify-end min-h-[140px]">
+              <p className="mb-1">{schoolData.kabupatenKota}, {tglBAST.lengkap}</p>
+              <p>Pihak Pertama,</p>
+              <p>Pengurus Barang {schoolData.namaSekolah}</p>
+              <div className="h-16"></div>
+              <p className="font-bold underline">{schoolData.pengurusBarang}</p>
+              <p>NIP. {schoolData.nipPengurusBarang.replace(/\s+/g, '')}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -1581,144 +1601,146 @@ const DokumenSPJRenderer = ({ jenisDokumen, trx, schoolData, onOpenAddPhotoModal
     const totalLampiran = subtotalBarang + ppnNilai + pph22Nilai - (trx.diskon || 0);
 
     return (
-      <div className="bg-white p-8 md:px-10 border border-slate-300 shadow-sm text-black font-serif text-xs leading-snug page-break-after mx-auto" style={{ fontFamily: '"Times New Roman", Times, serif' }}>
-        <div className="text-center mb-4">
-          <h2 className="text-sm font-bold uppercase tracking-wide">BERITA ACARA SERAH TERIMA BARANG</h2>
-          <p className="text-xs mt-0.5">Nomor : {trx.noBAST}</p>
-        </div>
-
-        <table className="w-full border-collapse border border-black text-xs mb-2">
-          <thead>
-            <tr className="bg-[#d8e4bc] font-bold text-center">
-              <th rowSpan={2} className="border border-black p-1.5 w-10">NO.</th>
-              <th rowSpan={2} className="border border-black p-1.5 text-center">Jenis Barang Yang Dibeli</th>
-              <th rowSpan={2} className="border border-black p-1.5 w-28 text-center">Nomor Surat Pesanan</th>
-              <th colSpan={3} className="border border-black p-1.5 text-center">JUMLAH</th>
-              <th rowSpan={2} className="border border-black p-1.5 w-12 text-center">KET.</th>
-            </tr>
-            <tr className="bg-[#d8e4bc] font-bold text-center">
-              <th className="border border-black p-1.5 w-24">Banyak Barang</th>
-              <th className="border border-black p-1.5 w-28">Harga Satuan</th>
-              <th className="border border-black p-1.5 w-28">Jumlah Harga</th>
-            </tr>
-            <tr className="bg-[#ebf1de] italic text-[11px] text-center font-semibold">
-              <td className="border border-black py-0.5">1</td>
-              <td className="border border-black py-0.5">2</td>
-              <td className="border border-black py-0.5">3</td>
-              <td className="border border-black py-0.5">4</td>
-              <td className="border border-black py-0.5">5</td>
-              <td className="border border-black py-0.5">6</td>
-              <td className="border border-black py-0.5">7</td>
-            </tr>
-          </thead>
-          <tbody>
-            {trx.items.map((item, idx) => (
-              <tr key={idx} className="align-top">
-                <td className="border-x border-black px-1.5 py-1 text-center">{idx + 1}</td>
-                <td className="border-x border-black px-2 py-1">{item.nama}</td>
-                {idx === 0 && (
-                  <td
-                    rowSpan={trx.items.length}
-                    className="border-x border-black px-1.5 py-1 text-center align-middle break-all font-mono text-[11px]"
-                  >
-                    {trx.noNotaPesanan}
-                  </td>
-                )}
-                <td className="border-x border-black px-1.5 py-1">
-                  <div className="flex justify-between">
-                    <span className="font-semibold">{item.jumlah}</span>
-                    <span>{item.satuan}</span>
-                  </div>
-                </td>
-                <td className="border-x border-black px-2 py-1">
-                  <div className="flex justify-between">
-                    <span>Rp</span>
-                    <span>{new Intl.NumberFormat('id-ID').format(item.harga)}</span>
-                  </div>
-                </td>
-                <td className="border-x border-black px-2 py-1">
-                  <div className="flex justify-between">
-                    <span>Rp</span>
-                    <span>{new Intl.NumberFormat('id-ID').format(item.jumlah * item.harga)}</span>
-                  </div>
-                </td>
-                <td className="border-x border-black px-1.5 py-1 text-center font-bold">&#10003;</td>
-              </tr>
-            ))}
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colSpan={3} className="border border-black px-2 py-1 text-right font-semibold">JUMLAH</td>
-              <td className="border border-black bg-[#d9d9d9]"></td>
-              <td className="border border-black bg-[#d9d9d9]"></td>
-              <td className="border border-black px-2 py-1">
-                <div className="flex justify-between font-semibold">
-                  <span>Rp</span>
-                  <span>{new Intl.NumberFormat('id-ID').format(subtotalBarang)}</span>
-                </div>
-              </td>
-              <td className="border border-black"></td>
-            </tr>
-            <tr>
-              <td colSpan={3} className="border border-black px-2 py-1 text-right">PPN 11 % = RP.</td>
-              <td className="border border-black bg-[#d9d9d9]"></td>
-              <td className="border border-black bg-[#d9d9d9]"></td>
-              <td className="border border-black px-2 py-1">
-                <div className="flex justify-between text-slate-600">
-                  <span>Rp</span>
-                  <span>{ppnNilai > 0 ? new Intl.NumberFormat('id-ID').format(ppnNilai) : '-'}</span>
-                </div>
-              </td>
-              <td className="border border-black"></td>
-            </tr>
-            <tr>
-              <td colSpan={3} className="border border-black px-2 py-1 text-right">PPh 22 = RP.</td>
-              <td className="border border-black bg-[#d9d9d9]"></td>
-              <td className="border border-black bg-[#d9d9d9]"></td>
-              <td className="border border-black px-2 py-1">
-                <div className="flex justify-between text-slate-600">
-                  <span>Rp</span>
-                  <span>{pph22Nilai > 0 ? new Intl.NumberFormat('id-ID').format(pph22Nilai) : '-'}</span>
-                </div>
-              </td>
-              <td className="border border-black"></td>
-            </tr>
-            <tr className="font-bold">
-              <td colSpan={3} className="border border-black px-2 py-1 text-right">TOTAL = RP.</td>
-              <td className="border border-black bg-[#d9d9d9]"></td>
-              <td className="border border-black bg-[#d9d9d9]"></td>
-              <td className="border border-black px-2 py-1">
-                <div className="flex justify-between">
-                  <span>Rp</span>
-                  <span>{new Intl.NumberFormat('id-ID').format(totalLampiran)}</span>
-                </div>
-              </td>
-              <td className="border border-black"></td>
-            </tr>
-            <tr>
-              <td colSpan={2} className="border border-black px-2 py-1.5">dengan huruf</td>
-              <td colSpan={5} className="border border-black px-3 py-1.5 font-bold italic">
-                {formatTerbilang(totalLampiran)}
-              </td>
-            </tr>
-          </tfoot>
-        </table>
-
-        <div className="flex justify-between items-end mt-8 text-xs px-8">
-          <div className="text-center w-64 flex flex-col justify-end min-h-[140px]">
-            <p>Pihak Kedua,</p>
-            <p>Penyedia Barang / Rekanan</p>
-            <div className="h-16"></div>
-            <p className="font-bold underline uppercase">{trx.namaPemilikPenyedia}</p>
-            <p>{trx.jabatanPenyedia || 'Direktur / Pemilik'}</p>
+      <div className="naskah-bast bg-white p-8 md:px-10 border border-slate-300 shadow-sm text-black leading-snug page-break-after mx-auto" style={{ fontFamily: 'Georgia, serif', fontSize: '10.5pt' }}>
+        <div className="isi-bast" style={{ fontFamily: 'Georgia, serif', fontSize: '10.5pt' }}>
+          <div className="text-center mb-4">
+            <h2 className="font-bold uppercase tracking-wide" style={{ fontFamily: 'Georgia, serif', fontSize: '10.5pt' }}>BERITA ACARA SERAH TERIMA BARANG</h2>
+            <p className="mt-0.5">Nomor : {trx.noBAST}</p>
           </div>
-          <div className="text-center w-64 flex flex-col justify-end min-h-[140px]">
-            <p className="mb-1">{schoolData.kabupatenKota}, {tglBAST.lengkap}</p>
-            <p>Pihak Pertama,</p>
-            <p>Pengurus Barang {schoolData.namaSekolah}</p>
-            <div className="h-16"></div>
-            <p className="font-bold underline">{schoolData.pengurusBarang}</p>
-            <p>NIP. {schoolData.nipPengurusBarang.replace(/\s+/g, '')}</p>
+
+          <table className="w-full border-collapse border border-black mb-2">
+            <thead>
+              <tr className="bg-[#d8e4bc] font-bold text-center">
+                <th rowSpan={2} className="border border-black p-1.5 w-10">NO.</th>
+                <th rowSpan={2} className="border border-black p-1.5 text-center">Jenis Barang Yang Dibeli</th>
+                <th rowSpan={2} className="border border-black p-1.5 w-28 text-center">Nomor Surat Pesanan</th>
+                <th colSpan={3} className="border border-black p-1.5 text-center">JUMLAH</th>
+                <th rowSpan={2} className="border border-black p-1.5 w-12 text-center">KET.</th>
+              </tr>
+              <tr className="bg-[#d8e4bc] font-bold text-center">
+                <th className="border border-black p-1.5 w-24">Banyak Barang</th>
+                <th className="border border-black p-1.5 w-28">Harga Satuan</th>
+                <th className="border border-black p-1.5 w-28">Jumlah Harga</th>
+              </tr>
+              <tr className="bg-[#ebf1de] italic text-center font-semibold">
+                <td className="border border-black py-0.5">1</td>
+                <td className="border border-black py-0.5">2</td>
+                <td className="border border-black py-0.5">3</td>
+                <td className="border border-black py-0.5">4</td>
+                <td className="border border-black py-0.5">5</td>
+                <td className="border border-black py-0.5">6</td>
+                <td className="border border-black py-0.5">7</td>
+              </tr>
+            </thead>
+            <tbody>
+              {trx.items.map((item, idx) => (
+                <tr key={idx} className="align-top">
+                  <td className="border-x border-black px-1.5 py-1 text-center">{idx + 1}</td>
+                  <td className="border-x border-black px-2 py-1">{item.nama}</td>
+                  {idx === 0 && (
+                    <td
+                      rowSpan={trx.items.length}
+                      className="border-x border-black px-1.5 py-1 text-center align-middle break-all"
+                    >
+                      {trx.noNotaPesanan}
+                    </td>
+                  )}
+                  <td className="border-x border-black px-1.5 py-1">
+                    <div className="flex justify-between">
+                      <span className="font-semibold">{item.jumlah}</span>
+                      <span>{item.satuan}</span>
+                    </div>
+                  </td>
+                  <td className="border-x border-black px-2 py-1">
+                    <div className="flex justify-between">
+                      <span>Rp</span>
+                      <span>{new Intl.NumberFormat('id-ID').format(item.harga)}</span>
+                    </div>
+                  </td>
+                  <td className="border-x border-black px-2 py-1">
+                    <div className="flex justify-between">
+                      <span>Rp</span>
+                      <span>{new Intl.NumberFormat('id-ID').format(item.jumlah * item.harga)}</span>
+                    </div>
+                  </td>
+                  <td className="border-x border-black px-1.5 py-1 text-center font-bold">&#10003;</td>
+                </tr>
+              ))}
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colSpan={3} className="border border-black px-2 py-1 text-right font-semibold">JUMLAH</td>
+                <td className="border border-black bg-[#d9d9d9]"></td>
+                <td className="border border-black bg-[#d9d9d9]"></td>
+                <td className="border border-black px-2 py-1">
+                  <div className="flex justify-between font-semibold">
+                    <span>Rp</span>
+                    <span>{new Intl.NumberFormat('id-ID').format(subtotalBarang)}</span>
+                  </div>
+                </td>
+                <td className="border border-black"></td>
+              </tr>
+              <tr>
+                <td colSpan={3} className="border border-black px-2 py-1 text-right">PPN 11 % = RP.</td>
+                <td className="border border-black bg-[#d9d9d9]"></td>
+                <td className="border border-black bg-[#d9d9d9]"></td>
+                <td className="border border-black px-2 py-1">
+                  <div className="flex justify-between text-slate-600">
+                    <span>Rp</span>
+                    <span>{ppnNilai > 0 ? new Intl.NumberFormat('id-ID').format(ppnNilai) : '-'}</span>
+                  </div>
+                </td>
+                <td className="border border-black"></td>
+              </tr>
+              <tr>
+                <td colSpan={3} className="border border-black px-2 py-1 text-right">PPh 22 = RP.</td>
+                <td className="border border-black bg-[#d9d9d9]"></td>
+                <td className="border border-black bg-[#d9d9d9]"></td>
+                <td className="border border-black px-2 py-1">
+                  <div className="flex justify-between text-slate-600">
+                    <span>Rp</span>
+                    <span>{pph22Nilai > 0 ? new Intl.NumberFormat('id-ID').format(pph22Nilai) : '-'}</span>
+                  </div>
+                </td>
+                <td className="border border-black"></td>
+              </tr>
+              <tr className="font-bold">
+                <td colSpan={3} className="border border-black px-2 py-1 text-right">TOTAL = RP.</td>
+                <td className="border border-black bg-[#d9d9d9]"></td>
+                <td className="border border-black bg-[#d9d9d9]"></td>
+                <td className="border border-black px-2 py-1">
+                  <div className="flex justify-between">
+                    <span>Rp</span>
+                    <span>{new Intl.NumberFormat('id-ID').format(totalLampiran)}</span>
+                  </div>
+                </td>
+                <td className="border border-black"></td>
+              </tr>
+              <tr>
+                <td colSpan={2} className="border border-black px-2 py-1.5">dengan huruf</td>
+                <td colSpan={5} className="border border-black px-3 py-1.5 font-bold italic">
+                  {formatTerbilang(totalLampiran)}
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+
+          <div className="flex justify-between items-end mt-8 px-8">
+            <div className="text-center w-64 flex flex-col justify-end min-h-[140px]">
+              <p>Pihak Kedua,</p>
+              <p>Penyedia Barang / Rekanan</p>
+              <div className="h-16"></div>
+              <p className="font-bold underline uppercase">{trx.namaPemilikPenyedia}</p>
+              <p>{trx.jabatanPenyedia || 'Direktur / Pemilik'}</p>
+            </div>
+            <div className="text-center w-64 flex flex-col justify-end min-h-[140px]">
+              <p className="mb-1">{schoolData.kabupatenKota}, {tglBAST.lengkap}</p>
+              <p>Pihak Pertama,</p>
+              <p>Pengurus Barang {schoolData.namaSekolah}</p>
+              <div className="h-16"></div>
+              <p className="font-bold underline">{schoolData.pengurusBarang}</p>
+              <p>NIP. {schoolData.nipPengurusBarang.replace(/\s+/g, '')}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -1865,56 +1887,59 @@ function App() {
 
   // Status Penyimpanan Data Otomatis (Local Browser DB + Cloud Sync)
   const [isDataLoaded, setIsDataLoaded] = useState(false);
+  const [isCloudSynced, setIsCloudSynced] = useState(false);
   const [saveStatus, setSaveStatus] = useState('Memuat data tersimpan...');
   const [lastSavedTime, setLastSavedTime] = useState('-');
   const [firebaseUser, setFirebaseUser] = useState(null);
   const dbFirestoreRef = useRef(null);
   const isRemoteUpdateRef = useRef(false);
+  const localUpdatedAtMsRef = useRef(0);
+  const readyToAutoSaveRef = useRef(false);
 
   // State Transaksi yang sedang dipilih untuk lihat/cetak dokumen
   const [selectedTrxId, setSelectedTrxId] = useState(INITIAL_TRANSACTIONS[0].id);
   const [selectedDocType, setSelectedDocType] = useState('kwitansi');
   const [showDocPreviewModal, setShowDocPreviewModal] = useState(false);
 
-  // State Modal Ambil / Ganti Foto & Modal Tambah Foto Baru
+  // State Modal Input/Edit Transaksi & Tambah Toko
+  const [showTrxModal, setShowTrxModal] = useState(false);
+  const [editingTrx, setEditingTrx] = useState(null);
+  const [showModalTambahToko, setShowModalTambahToko] = useState(false);
+  const [newTokoForm, setNewTokoForm] = useState({
+    namaPenyedia: '',
+    alamatPenyedia: '',
+    namaPemilikPenyedia: '',
+    teleponPenyedia: '',
+    npwpPenyedia: ''
+  });
+
+  // State Modal Foto & Konfirmasi Reset
   const [activePhotoEdit, setActivePhotoEdit] = useState(null);
   const [addPhotoModalTrxId, setAddPhotoModalTrxId] = useState(null);
   const [newPhotoForm, setNewPhotoForm] = useState({ kategori: 'Foto Barang', judul: '', fileDataUrl: null });
-
-  // Modal Konfirmasi Reset Data
   const [showResetConfirmModal, setShowResetConfirmModal] = useState(false);
 
-  window.bukaModalAmbilFoto = (trxId, docId) => {
-    setActivePhotoEdit({ trxId, docId });
-  };
-
-  // Handler Form Tambah/Edit Transaksi
-  const [showTrxModal, setShowTrxModal] = useState(false);
-  const [editingTrx, setEditingTrx] = useState(null);
-
-  // State Modal Tambah Toko Baru dari Form Transaksi
-  const [showModalTambahToko, setShowModalTambahToko] = useState(false);
-  const [newTokoForm, setNewTokoForm] = useState({ namaPenyedia: '', alamatPenyedia: '', namaPemilikPenyedia: '', teleponPenyedia: '', npwpPenyedia: '' });
-
-  // State Filter & Pencarian
+  // State Filter, Pencarian, Peran Pengguna & Notifikasi Toast
+  const [currentUserRole, setCurrentUserRole] = useState('Pengurus Barang');
   const [searchQuery, setSearchQuery] = useState('');
   const [filterBulan, setFilterBulan] = useState('Semua');
   const [filterKomponen, setFilterKomponen] = useState('Semua');
+  const [toast, setToast] = useState(null);
 
-  // State User Role & Toast
-  const [currentUserRole, setCurrentUserRole] = useState('Pengurus Barang');
-  const [toastMsg, setToastMsg] = useState(null);
+  const selectedTrx = useMemo(
+    () => transactions.find((t) => t.id === selectedTrxId) || transactions[0],
+    [transactions, selectedTrxId]
+  );
 
-  const showToast = (pesan, tipe = 'success') => {
-    setToastMsg({ pesan, tipe });
-    setTimeout(() => setToastMsg(null), 4000);
-  };
-
-  const catatLog = (aksi) => {
-    const now = new Date();
-    const waktuStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-    setAuditLogs(prev => [{ waktu: waktuStr, user: `${currentUserRole} (${DEVELOPER_NAME})`, aksi }, ...prev]);
-  };
+  // Daftarkan callback global untuk klik ganti foto pada dokumen dokumentasi
+  useEffect(() => {
+    window.bukaModalAmbilFoto = (trxId, docId) => {
+      setActivePhotoEdit({ trxId, docId });
+    };
+    return () => {
+      delete window.bukaModalAmbilFoto;
+    };
+  }, []);
 
   // ==========================================
   // 1. MUAT DATA TERSIMPAN SAAT APLIKASI DIBUKA / REFRESH
@@ -1930,7 +1955,10 @@ function App() {
         if (savedData.transactions && savedData.transactions.length > 0) {
           const normalizedTrx = savedData.transactions.map(t => normalizeTransactionNumbers(t));
           setTransactions(normalizedTrx);
-          setSelectedTrxId(normalizedTrx[0].id);
+          const lastSelected = savedData.selectedTrxId && normalizedTrx.some(t => t.id === savedData.selectedTrxId)
+            ? savedData.selectedTrxId
+            : normalizedTrx[0].id;
+          setSelectedTrxId(lastSelected);
         }
         // Gabungkan dan perbarui daftar toko lokal dengan data master terbaru agar data baru selalu masuk
         if (savedData.tokoList && savedData.tokoList.length > 0) {
@@ -1945,7 +1973,8 @@ function App() {
           setTokoList(INITIAL_TOKO_LIST);
         }
         if (savedData.auditLogs) setAuditLogs(savedData.auditLogs);
-        setSaveStatus('Data Lokal Aktif & Tersimpan');
+        localUpdatedAtMsRef.current = savedData.updatedAtMs || 1;
+        setSaveStatus('Data Terakhir Dimuat');
         setLastSavedTime(savedData.updatedAt || 'Baru saja');
       } else if (isMounted) {
         setSaveStatus('Data Lokal Siap');
@@ -1976,9 +2005,12 @@ function App() {
               setFirebaseUser(user);
             }
           });
+        } else if (isMounted) {
+          setIsCloudSynced(true);
         }
       } catch (err) {
         // Berjalan mandiri dengan Database Lokal Browser (IndexedDB) jika offline
+        if (isMounted) setIsCloudSynced(true);
       }
     };
     initCloudSync();
@@ -1998,60 +2030,147 @@ function App() {
         if (cloudData && cloudData.payload) {
           try {
             const parsed = JSON.parse(cloudData.payload);
-            isRemoteUpdateRef.current = true;
-            if (parsed.schoolData) setSchoolData(parsed.schoolData);
-            if (parsed.formatNomor) setFormatNomor(parsed.formatNomor);
-            if (parsed.anggaran) setAnggaran(parsed.anggaran);
-            if (parsed.transactions && parsed.transactions.length > 0) setTransactions(parsed.transactions);
-            if (parsed.tokoList) setTokoList(parsed.tokoList);
-            if (parsed.auditLogs) setAuditLogs(parsed.auditLogs);
-            setLastSavedTime(parsed.updatedAt || 'Tersinkron');
-            setTimeout(() => { isRemoteUpdateRef.current = false; }, 300);
+            const cloudTimeMs = parsed.updatedAtMs || 1;
+            // Hanya timpa state lokal jika data cloud lebih baru daripada data lokal
+            if (cloudTimeMs > localUpdatedAtMsRef.current) {
+              isRemoteUpdateRef.current = true;
+              localUpdatedAtMsRef.current = cloudTimeMs;
+              if (parsed.schoolData) setSchoolData(parsed.schoolData);
+              if (parsed.formatNomor) setFormatNomor(parsed.formatNomor);
+              if (parsed.anggaran) setAnggaran(parsed.anggaran);
+              if (parsed.transactions && parsed.transactions.length > 0) {
+                const normalizedTrx = parsed.transactions.map(t => normalizeTransactionNumbers(t));
+                setTransactions(normalizedTrx);
+                const lastSelected = parsed.selectedTrxId && normalizedTrx.some(t => t.id === parsed.selectedTrxId)
+                  ? parsed.selectedTrxId
+                  : normalizedTrx[0].id;
+                setSelectedTrxId(lastSelected);
+              }
+              if (parsed.tokoList) setTokoList(parsed.tokoList);
+              if (parsed.auditLogs) setAuditLogs(parsed.auditLogs);
+              setLastSavedTime(parsed.updatedAt || 'Tersinkron');
+              setSaveStatus('Tersinkronisasi');
+              saveStateToBrowserDB(parsed);
+              setTimeout(() => { isRemoteUpdateRef.current = false; }, 350);
+            }
           } catch (e) {}
         }
       }
-    }, () => {});
+      setIsCloudSynced(true);
+    }, () => {
+      setIsCloudSynced(true);
+    });
 
     return () => unsubscribe();
   }, [firebaseUser]);
+
+  // Fungsi Simpan Langsung ke Penyimpanan Lokal & Cloud
+  const simpanSemuaDataSekarang = async (overrides = {}, tampilkanNotif = false) => {
+    const now = new Date();
+    const jamStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+    const updatedAtMs = Date.now();
+    localUpdatedAtMsRef.current = updatedAtMs;
+
+    const dataToSave = {
+      schoolData: overrides.schoolData || schoolData,
+      formatNomor: overrides.formatNomor || formatNomor,
+      anggaran: overrides.anggaran || anggaran,
+      transactions: overrides.transactions || transactions,
+      tokoList: overrides.tokoList || tokoList,
+      auditLogs: overrides.auditLogs || auditLogs,
+      selectedTrxId: overrides.selectedTrxId || selectedTrxId,
+      developer: DEVELOPER_NAME,
+      updatedAt: jamStr,
+      updatedAtMs
+    };
+
+    // 1. Simpan utuh (termasuk foto) ke Database Lokal Browser (IndexedDB)
+    const ok = await saveStateToBrowserDB(dataToSave);
+    if (ok) {
+      setSaveStatus('Tersimpan Otomatis');
+      setLastSavedTime(jamStr);
+    }
+
+    // 2. Simpan ke Cloud jika aktif (hindari gagal simpan karena batas ukuran 1MB bila foto banyak)
+    if (firebaseUser && dbFirestoreRef.current && isCloudSynced) {
+      const appId = typeof __app_id !== 'undefined' ? __app_id : 'smkn4-sinjai-bosp';
+      const docRef = doc(dbFirestoreRef.current, 'artifacts', appId, 'users', firebaseUser.uid, 'bosp_data', 'main_state');
+      let serialized = JSON.stringify(dataToSave);
+      if (serialized.length >= 900000) {
+        // Jika ukuran foto terlalu besar untuk cloud, tetap simpan seluruh data transaksi & teks
+        const cloudSafeData = {
+          ...dataToSave,
+          transactions: dataToSave.transactions.map(t => ({
+            ...t,
+            dokumentasi: (t.dokumentasi || []).map(d => ({ ...d, fileUrl: null }))
+          }))
+        };
+        serialized = JSON.stringify(cloudSafeData);
+      }
+      if (serialized.length < 950000) {
+        setDoc(docRef, { payload: serialized, updatedAt: new Date().toISOString() }, { merge: true }).catch(() => {});
+      }
+    }
+
+    if (tampilkanNotif) {
+      showToast(`Seluruh data terakhir berhasil disimpan (${jamStr})!`);
+    }
+  };
 
   // ==========================================
   // 2. SIMPAN OTOMATIS SETIAP ADA PERUBAHAN DATA
   // ==========================================
   useEffect(() => {
-    if (!isDataLoaded) return;
-
-    const now = new Date();
-    const jamStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
-    const dataToSave = {
-      schoolData,
-      formatNomor,
-      anggaran,
-      transactions,
-      tokoList,
-      auditLogs,
-      developer: DEVELOPER_NAME,
-      updatedAt: jamStr
-    };
-
-    // Simpan ke Database Lokal Browser (IndexedDB) agar tahan refresh & tutup aplikasi
-    saveStateToBrowserDB(dataToSave).then((ok) => {
-      if (ok) {
-        setSaveStatus('Tersimpan Otomatis di Browser');
-        setLastSavedTime(jamStr);
-      }
-    });
-
-    // Simpan ke Cloud jika aktif dan bukan dari update remote
-    if (firebaseUser && dbFirestoreRef.current && !isRemoteUpdateRef.current) {
-      const appId = typeof __app_id !== 'undefined' ? __app_id : 'smkn4-sinjai-bosp';
-      const docRef = doc(dbFirestoreRef.current, 'artifacts', appId, 'users', firebaseUser.uid, 'bosp_data', 'main_state');
-      const serialized = JSON.stringify(dataToSave);
-      if (serialized.length < 950000) {
-        setDoc(docRef, { payload: serialized, updatedAt: new Date().toISOString() }, { merge: true }).catch(() => {});
-      }
+    if (!isDataLoaded || !isCloudSynced) return;
+    if (!readyToAutoSaveRef.current) {
+      readyToAutoSaveRef.current = true;
+      return;
     }
-  }, [schoolData, formatNomor, anggaran, transactions, tokoList, auditLogs, isDataLoaded, firebaseUser]);
+    if (isRemoteUpdateRef.current) return;
+
+    simpanSemuaDataSekarang();
+  }, [schoolData, formatNomor, anggaran, transactions, tokoList, auditLogs, selectedTrxId, isDataLoaded, isCloudSynced]);
+
+  // Fungsi Notifikasi Toast
+  const showToast = (message, type = 'success') => {
+    setToast({ message, type });
+    setTimeout(() => {
+      setToast((prev) => (prev && prev.message === message ? null : prev));
+    }, 3500);
+  };
+
+  // Fungsi Catat Log Aktivitas
+  const catatLog = (aksi) => {
+    const now = new Date();
+    const waktuStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+    setAuditLogs((prev) => [
+      { waktu: waktuStr, user: `${currentUserRole} (${schoolData.namaLengkapPengurusBarang || DEVELOPER_NAME})`, aksi },
+      ...prev
+    ]);
+  };
+
+  // Hitung Persentase Kelengkapan Dokumen SPJ per Transaksi
+  const hitungKelengkapanTrx = (trx) => {
+    if (!trx || !trx.statusDokumen) return 0;
+    const keys = ['kwitansi', 'notaPesanan', 'faktur', 'baPenerimaan', 'baPemeriksaan', 'bast', 'dokumentasi'];
+    const lengkapCount = keys.filter((k) => trx.statusDokumen[k] === 'Lengkap').length + (trx.persetujuanKepsek ? 1 : 0);
+    return Math.round((lengkapCount / (keys.length + 1)) * 100);
+  };
+
+  // Ringkasan Statistik Dashboard
+  const stats = useMemo(() => {
+    const pagu = Number(anggaran.paguTahunan) || 0;
+    const diterima = (Number(anggaran.penerimaanTahap1) || 0) + (Number(anggaran.penerimaanTahap2) || 0);
+    const realisasi = transactions.reduce(
+      (sum, t) => sum + (t.items || []).reduce((s, i) => s + ((Number(i.jumlah) || 0) * (Number(i.harga) || 0)), 0),
+      0
+    );
+    const sisa = pagu - realisasi;
+    const persen = pagu > 0 ? Number(((realisasi / pagu) * 100).toFixed(1)) : 0;
+    const jmlTransaksi = transactions.length;
+    const jmlBelumLengkap = transactions.filter((t) => hitungKelengkapanTrx(t) < 100).length;
+    return { pagu, diterima, realisasi, sisa, persen, jmlTransaksi, jmlBelumLengkap };
+  }, [anggaran, transactions]);
 
   // Fungsi Reset ke Data Awal
   const handleResetDataDefault = async () => {
@@ -2064,110 +2183,65 @@ function App() {
     setAuditLogs(INITIAL_AUDIT_LOGS);
     setSelectedTrxId(INITIAL_TRANSACTIONS[0].id);
     setShowResetConfirmModal(false);
-    showToast('Data berhasil dikembalikan ke pengaturan awal (Default)!');
+    setSaveStatus('Data Direset ke Default');
+    showToast('Seluruh data berhasil dikembalikan ke pengaturan awal (Default).');
   };
 
-  const selectedTrx = useMemo(() => {
-    return transactions.find(t => t.id === selectedTrxId) || transactions[0];
-  }, [transactions, selectedTrxId]);
-
-  // ==========================================
-  // PERHITUNGAN STATISTIK DASHBOARD & ANGGARAN
-  // ==========================================
-  const stats = useMemo(() => {
-    const totalDanaDiterima = Number(anggaran.penerimaanTahap1) + Number(anggaran.penerimaanTahap2);
-    let totalRealisasi = 0;
-    let dokBelumLengkapCount = 0;
-
-    transactions.forEach(t => {
-      const sub = t.items.reduce((acc, i) => acc + (i.jumlah * i.harga), 0) - (t.diskon || 0) + (t.pajakPPN || 0);
-      totalRealisasi += sub;
-      const statusVals = Object.values(t.statusDokumen || {});
-      if (statusVals.includes('Belum') || !t.persetujuanKepsek) {
-        dokBelumLengkapCount += 1;
-      }
-    });
-
-    const sisaAnggaran = anggaran.paguTahunan - totalRealisasi;
-    const persenRealisasi = anggaran.paguTahunan > 0 ? ((totalRealisasi / anggaran.paguTahunan) * 100).toFixed(1) : 0;
-
-    return {
-      pagu: anggaran.paguTahunan,
-      diterima: totalDanaDiterima,
-      realisasi: totalRealisasi,
-      sisa: sisaAnggaran,
-      persen: persenRealisasi,
-      jmlTransaksi: transactions.length,
-      jmlKwitansi: transactions.length,
-      jmlNotaPesanan: transactions.length,
-      jmlFaktur: transactions.length,
-      jmlBeritaAcara: transactions.length * 3,
-      jmlBelumLengkap: dokBelumLengkapCount
-    };
-  }, [anggaran, transactions]);
-
-  const hitungKelengkapanTrx = (trx) => {
-    const vals = Object.values(trx.statusDokumen || {});
-    if (vals.length === 0) return 0;
-    const lengkap = vals.filter(v => v === 'Lengkap').length;
-    return Math.round((lengkap / vals.length) * 100);
-  };
-
-  // ==========================================
-  // HANDLER FORM TRANSAKSI BARU / EDIT
-  // ==========================================
+  // Buka Modal Form Transaksi Baru (Nomor Urut Dikosongkan untuk Input Manual)
   const handleBukaFormBaru = () => {
-    const urutBaru = '';
+    const today = new Date().toISOString().split('T')[0];
+    const bulanNama = [
+      'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+      'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+    ][new Date().getMonth()] || 'Januari';
     const thn = schoolData.tahunAnggaran || '2026';
-    const tglHariIni = new Date().toISOString().split('T')[0];
-    const nomorSeragam = generateNomorDokumenSeragam(urutBaru, thn);
+    const nomorAwal = generateNomorDokumenSeragam('', thn);
 
-    const draftAwal = {
+    const draftBaru = {
       isNew: true,
-      id: nomorSeragam.noKwitansi,
-      noUrut: urutBaru,
-      tanggal: tglHariIni,
-      tanggalKwitansi: tglHariIni,
-      tanggalPesan: tglHariIni,
-      tanggalFaktur: tglHariIni,
-      tanggalTerima: tglHariIni,
-      tanggalPeriksa: tglHariIni,
-      tanggalBAST: tglHariIni,
+      id: nomorAwal.noKwitansi,
+      ...nomorAwal,
+      tanggal: today,
+      tanggalKwitansi: today,
+      tanggalPesan: today,
+      tanggalFaktur: today,
+      tanggalTerima: today,
+      tanggalPeriksa: today,
+      tanggalBAST: today,
       tahunAnggaran: thn,
       tahap: 'Tahap 1',
-      bulan: 'Mei',
-      komponen: KOMPONEN_BOSP_LIST[5],
+      bulan: bulanNama,
+      komponen: KOMPONEN_BOSP_LIST[0],
       kegiatanId: anggaran.rencanaKegiatan[0]?.id || 'RK-01',
-      namaKegiatan: DAFTAR_KEGIATAN_ARKAS[19],
+      namaKegiatan: '',
       itemBelanjaRingkas: '',
       kegiatanSpesifik: '',
-      bankPemindahbukuan: schoolData.namaBank || 'Bank Sulselbar',
+      bankPemindahbukuan: schoolData.namaBank || 'Bank Sulselbar Cabang Sinjai',
       uraianBelanja: '',
       redaksiKwitansiManual: '',
       isRedaksiManualEdited: false,
-      jenisBelanja: 'Belanja Barang dan Jasa',
+      jenisBelanja: 'Belanja Barang dan Jasa (BHP)',
       sumberDana: `BOSP Reguler SMK Tahun ${thn}`,
       metodePembayaran: 'Non-Tunai (CMS Bank Sulselbar)',
-      namaPJKegiatan: 'Irwan Elvin Kadir',
-      pangkatPJKegiatan: 'IX',
-      nipPJKegiatan: '198806152022211008',
-      jabatanPJKegiatan: 'Penanggung Jawab Kegiatan',
       namaPenyedia: '',
       namaPemilikPenyedia: '',
-      jabatanPenyedia: 'Direktur / Pemilik',
-      alamatPenyedia: 'Kabupaten Sinjai',
+      jabatanPenyedia: 'Pemilik Toko',
+      alamatPenyedia: '',
       teleponPenyedia: '',
       npwpPenyedia: '',
+      namaPJKegiatan: schoolData.penanggungJawabKegiatan || 'ILHAM',
+      pangkatPJKegiatan: schoolData.pangkatPJKegiatan || 'III',
+      nipPJKegiatan: schoolData.nipPJKegiatan || '197507012025211032',
+      jabatanPJKegiatan: schoolData.jabatanPJKegiatan || 'Penanggung Jawab Kegiatan',
       tipeFaktur: 'Faktur Resmi Penyedia (SIPLah)',
-      ...nomorSeragam,
       items: [
         { id: Date.now(), nama: '', spesifikasi: '', jumlah: 1, satuan: 'Unit', harga: 0, kondisi: 'Baik & Baru', hasilPeriksa: 'Sesuai' }
       ],
       diskon: 0,
       pajakPPN: 0,
-      catatanPesanan: 'Barang dikirim dalam kondisi baik, baru, dan sesuai spesifikasi pesanan.',
-      kesimpulanPemeriksaan: 'Seluruh barang yang dipesan telah diperiksa dan dinyatakan 100% SESUAI dengan Nota Pesanan.',
-      rekomendasiPemeriksaan: 'Barang dapat diterima oleh Pengurus Barang dan dibayarkan lunas oleh Bendahara BOSP.',
+      catatanPesanan: 'Harap barang dikirim dalam kondisi baik dan sesuai pesanan ke UPT SMKN 4 Sinjai.',
+      kesimpulanPemeriksaan: 'Seluruh barang telah diperiksa secara fisik dan dinyatakan 100% SESUAI dengan Nota Pesanan.',
+      rekomendasiPemeriksaan: 'Barang dapat diterima dan diproses pembayarannya oleh Bendahara BOSP.',
       statusDokumen: {
         kwitansi: 'Lengkap',
         notaPesanan: 'Lengkap',
@@ -2177,296 +2251,329 @@ function App() {
         baPemeriksaan: 'Lengkap',
         bast: 'Lengkap',
         lampiranBAST: 'Lengkap',
-        dokumentasi: 'Lengkap'
+        dokumentasi: 'Belum'
       },
-      persetujuanKepsek: true,
-      dokumentasi: [
-        { id: `DOC-${Date.now()}`, kategori: 'Foto Barang', judul: 'Dokumentasi Penerimaan & Pemeriksaan Fisik Barang', tanggal: tglHariIni, lokasi: schoolData.namaSekolah, pj: schoolData.pengurusBarang, warnaBg: '#1e3a8a' }
-      ]
+      persetujuanKepsek: false,
+      dokumentasi: []
     };
-    draftAwal.redaksiKwitansiManual = susunRedaksiKwitansiOtomatis(draftAwal, schoolData);
-    setEditingTrx(draftAwal);
+    draftBaru.redaksiKwitansiManual = susunRedaksiKwitansiOtomatis(draftBaru, schoolData);
+    setEditingTrx(draftBaru);
     setShowTrxModal(true);
   };
 
+  // Simpan Transaksi Baru / Perubahan Transaksi
   const handleSimpanTransaksi = (e) => {
     e.preventDefault();
-    if (!editingTrx.namaPenyedia || (!editingTrx.uraianBelanja && !editingTrx.itemBelanjaRingkas && !editingTrx.redaksiKwitansiManual)) {
-      showToast('Harap lengkapi Nama Penyedia dan Rincian Belanja terlebih dahulu!', 'error');
-      return;
-    }
+    if (!editingTrx) return;
 
-    const uraianFinal = editingTrx.itemBelanjaRingkas
-      ? `Belanja ${editingTrx.itemBelanjaRingkas}${editingTrx.kegiatanSpesifik ? ` untuk Kegiatan ${editingTrx.kegiatanSpesifik}` : ''}`
-      : (editingTrx.uraianBelanja || editingTrx.redaksiKwitansiManual);
-
-    const redaksiFinal = (editingTrx.redaksiKwitansiManual !== undefined && editingTrx.redaksiKwitansiManual !== '')
-      ? editingTrx.redaksiKwitansiManual
-      : susunRedaksiKwitansiOtomatis(editingTrx, schoolData);
-
+    const thn = editingTrx.tahunAnggaran || schoolData.tahunAnggaran || '2026';
+    const nomorFinal = generateNomorDokumenSeragam(editingTrx.noUrut, thn);
     const trxSiapSimpan = {
       ...editingTrx,
-      uraianBelanja: uraianFinal,
-      redaksiKwitansiManual: redaksiFinal
+      ...nomorFinal,
+      id: nomorFinal.noKwitansi,
+      uraianBelanja:
+        editingTrx.uraianBelanja && editingTrx.uraianBelanja.trim() !== ''
+          ? editingTrx.uraianBelanja
+          : `Belanja ${editingTrx.itemBelanjaRingkas || '-'} untuk Kegiatan ${editingTrx.kegiatanSpesifik || '-'}`
     };
-
-    const totalTrxBaru = trxSiapSimpan.items.reduce((s, i) => s + (i.jumlah * i.harga), 0);
-    if (stats.realisasi + totalTrxBaru > stats.pagu && trxSiapSimpan.isNew) {
-      showToast('Peringatan: Nilai transaksi ini melampaui sisa pagu anggaran BOSP yang tersedia!', 'error');
-    }
 
     if (trxSiapSimpan.isNew) {
       const { isNew, ...cleanTrx } = trxSiapSimpan;
-      setTransactions(prev => [cleanTrx, ...prev]);
+      const nextTransactions = [cleanTrx, ...transactions];
+      setTransactions(nextTransactions);
       setSelectedTrxId(cleanTrx.id);
       catatLog(`Menambahkan Transaksi Belanja BOSP baru: ${cleanTrx.id} (${cleanTrx.uraianBelanja})`);
-      showToast(`Transaksi ${cleanTrx.id} berhasil disimpan ke penyimpanan lokal!`);
+      simpanSemuaDataSekarang({ transactions: nextTransactions, selectedTrxId: cleanTrx.id });
+      showToast(`Transaksi ${cleanTrx.id} berhasil disimpan permanen!`);
     } else {
-      setTransactions(prev => prev.map(t => t.id === trxSiapSimpan.id ? trxSiapSimpan : t));
+      const nextTransactions = transactions.map(t => t.id === trxSiapSimpan.id ? trxSiapSimpan : t);
+      setTransactions(nextTransactions);
+      setSelectedTrxId(trxSiapSimpan.id);
       catatLog(`Memperbarui data Transaksi & Dokumen SPJ: ${trxSiapSimpan.id}`);
-      showToast(`Perubahan Transaksi ${trxSiapSimpan.id} berhasil disimpan!`);
+      simpanSemuaDataSekarang({ transactions: nextTransactions, selectedTrxId: trxSiapSimpan.id });
+      showToast(`Perubahan Transaksi ${trxSiapSimpan.id} berhasil disimpan permanen!`);
     }
     setShowTrxModal(false);
   };
 
+  // Hapus Transaksi
   const handleHapusTransaksi = (id) => {
-    setTransactions(prev => prev.filter(t => t.id !== id));
-    if (selectedTrxId === id && transactions.length > 1) {
-      setSelectedTrxId(transactions.find(t => t.id !== id)?.id);
-    }
-    catatLog(`Menghapus Transaksi ${id}`);
-    showToast(`Transaksi ${id} telah dihapus dari sistem.`);
+    const nextTransactions = transactions.filter((t) => t.id !== id);
+    setTransactions(nextTransactions);
+    const nextSelected = nextTransactions.length > 0 ? nextTransactions[0].id : '';
+    if (selectedTrxId === id) setSelectedTrxId(nextSelected);
+    catatLog(`Menghapus Transaksi Belanja BOSP: ${id}`);
+    simpanSemuaDataSekarang({ transactions: nextTransactions, selectedTrxId: nextSelected });
+    showToast(`Transaksi ${id} berhasil dihapus.`);
   };
 
+  // Buka Preview Dokumen SPJ
   const handlePrintDokumen = (trxId, docType) => {
     setSelectedTrxId(trxId);
     setSelectedDocType(docType);
     setShowDocPreviewModal(true);
   };
 
-  const handleDirectPrintSingle = (trxId, docType, namaNaskah = 'Dokumen SPJ') => {
-    setSelectedTrxId(trxId);
-    setSelectedDocType(docType);
-    setShowDocPreviewModal(true);
-    showToast(`Membuka dialog cetak ${namaNaskah}...`);
-    setTimeout(() => {
-      eksekusiCetakBrowser();
-    }, 800);
-  };
-
+  // Eksekusi Cetak Browser Bersih (F4, Tanpa Header/Footer Browser, Georgia 10.5pt untuk BA Distribusi)
   const eksekusiCetakBrowser = () => {
-    const kontenEl = document.getElementById('area-cetak-spj');
-    if (!kontenEl) {
+    const printArea = document.getElementById('area-cetak-spj');
+    if (!printArea) {
       window.print();
       return;
     }
-
-    const iframeLama = document.getElementById('iframe-cetak-bosp');
-    if (iframeLama) iframeLama.remove();
-
-    const iframe = document.createElement('iframe');
-    iframe.id = 'iframe-cetak-bosp';
-    iframe.style.position = 'fixed';
-    iframe.style.right = '0';
-    iframe.style.bottom = '0';
-    iframe.style.width = '0';
-    iframe.style.height = '0';
-    iframe.style.border = '0';
-    document.body.appendChild(iframe);
-
-    const htmlContent = '<!DOCTYPE html><html><head><title>Cetak SPJ BOSP - UPT SMKN 4 Sinjai</title><style>@page { size: 215mm 330mm portrait; margin: 10mm; } body { font-family: "Times New Roman", Times, serif; color: #000; margin: 0; padding: 0; background: #fff; font-size: 11pt; line-height: 1.25; -webkit-print-color-adjust: exact; print-color-adjust: exact; } .naskah-ba-distribusi, .naskah-ba-distribusi .isi-ba-distribusi, .naskah-ba-distribusi .isi-ba-distribusi p, .naskah-ba-distribusi .isi-ba-distribusi td, .naskah-ba-distribusi .isi-ba-distribusi th, .naskah-ba-distribusi .isi-ba-distribusi h2 { font-family: Georgia, serif !important; font-size: 10.5pt !important; } table { width: 100%; border-collapse: collapse; page-break-inside: auto; } tr { page-break-inside: avoid; page-break-after: auto; } thead { display: table-header-group; } tfoot { display: table-footer-group; } th, td { padding: 4px 6px; } .page-break-after { page-break-after: always; } * { box-sizing: border-box; }</style><script src="https://cdn.tailwindcss.com"><\/script></head><body>' + kontenEl.innerHTML + '</body></html>';
-
-    const doc = iframe.contentWindow.document;
-    doc.open();
-    doc.write(htmlContent);
-    doc.close();
-
-    setTimeout(() => {
-      try {
-        iframe.contentWindow.focus();
-        iframe.contentWindow.print();
-      } catch (err) {
-        window.print();
-      }
-    }, 1200);
-  };
-
-  const handleDownloadHTML = () => {
-    try {
-      showToast('Menyiapkan file HTML...');
-      const htmlContent = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
-      const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'Aplikasi_BOSP_SMKN4_Sinjai_Irwan_Elvin_Kadir.html';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-      showToast('Kode Aplikasi (HTML) berhasil diunduh!');
-    } catch (err) {
-      showToast('Gagal mengunduh kode HTML otomatis.', 'error');
+    const printWindow = window.open('', '_blank', 'width=960,height=1100');
+    if (!printWindow) {
+      window.print();
+      return;
     }
+    printWindow.document.open();
+    printWindow.document.write(`<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cetak SPJ BOSP - ${schoolData.namaSekolah}</title>
+  <script src="https://cdn.tailwindcss.com"><\/script>
+  <style>
+    @page {
+      size: 215mm 330mm portrait;
+      margin: 15mm;
+      @top-left { content: none; }
+      @top-right { content: none; }
+      @bottom-left { content: none; }
+      @bottom-right { content: none; }
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+      color: #000000;
+      font-size: 11pt;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .page-break-after {
+      page-break-after: always;
+    }
+    .naskah-ba-distribusi,
+    .naskah-ba-distribusi .isi-ba-distribusi,
+    .naskah-ba-distribusi .isi-ba-distribusi p,
+    .naskah-ba-distribusi .isi-ba-distribusi td,
+    .naskah-ba-distribusi .isi-ba-distribusi th,
+    .naskah-ba-distribusi .isi-ba-distribusi h2,
+    .naskah-bast,
+    .naskah-bast .isi-bast,
+    .naskah-bast .isi-bast p,
+    .naskah-bast .isi-bast td,
+    .naskah-bast .isi-bast th,
+    .naskah-bast .isi-bast h2,
+    .naskah-bast .isi-bast span,
+    .naskah-bap,
+    .naskah-bap .isi-bap,
+    .naskah-bap .isi-bap p,
+    .naskah-bap .isi-bap td,
+    .naskah-bap .isi-bap th,
+    .naskah-bap .isi-bap h2,
+    .naskah-bap .isi-bap span {
+      font-family: Georgia, serif !important;
+      font-size: 10.5pt !important;
+    }
+    @media print {
+      .print\\:hidden { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+  ${printArea.innerHTML}
+  <script>
+    window.onload = function() {
+      setTimeout(function() {
+        window.focus();
+        window.print();
+      }, 600);
+    };
+  <\/script>
+</body>
+</html>`);
+    printWindow.document.close();
   };
 
+  // Cetak Langsung 1 Naskah dari Daftar Transaksi
+  const handleDirectPrintSingle = (trxId, docType, label) => {
+    setSelectedTrxId(trxId);
+    setSelectedDocType(docType);
+    setShowDocPreviewModal(true);
+    showToast(`Menyiapkan naskah ${label} untuk dicetak...`);
+    setTimeout(() => {
+      eksekusiCetakBrowser();
+    }, 450);
+  };
+
+  // Download / Simpan PDF melalui Dialog Cetak Browser
   const handleDownloadPDF = () => {
-    showToast('Menyiapkan dokumen utuh untuk diunduh sebagai PDF...');
+    showToast('Pilih tujuan "Simpan sebagai PDF / Save as PDF" pada jendela cetak yang muncul.');
     eksekusiCetakBrowser();
   };
 
-  const handleExportCSV = () => {
-    const header = ['No Transaksi', 'Tanggal', 'Komponen BOSP', 'Nama Kegiatan', 'Uraian Belanja', 'Penyedia/Toko', 'No Kwitansi', 'No Nota Pesanan', 'No Faktur', 'No BAST', 'Total Realisasi (Rp)', 'Kelengkapan SPJ'];
-    const rows = transactions.map(t => {
-      const total = t.items.reduce((s, i) => s + (i.jumlah * i.harga), 0);
-      return [
-        t.id, t.tanggal, `"${t.komponen}"`, `"${t.namaKegiatan}"`, `"${t.uraianBelanja}"`,
-        `"${t.namaPenyedia}"`, t.noKwitansi, t.noNotaPesanan, t.noFaktur, t.noBAST, total, `${hitungKelengkapanTrx(t)}%`
-      ].join(',');
-    });
-    const csvContent = 'data:text/csv;charset=utf-8,' + [header.join(','), ...rows].join('\n');
-    const encodedUri = encodeURI(csvContent);
+  // Unduh File Aplikasi HTML Standalone
+  const handleDownloadHTML = () => {
+    const htmlContent = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+    const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
-    link.setAttribute('href', encodedUri);
-    link.setAttribute('download', `Laporan_SPJ_BOSP_SMKN4_Sinjai_${schoolData.tahunAnggaran}.csv`);
+    link.href = url;
+    link.download = `Sistem_Informasi_BOSP_SMKN4_Sinjai_${schoolData.tahunAnggaran}.html`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    showToast('Rekapitulasi Laporan BOSP berhasil diunduh dalam format CSV/Excel!');
+    URL.revokeObjectURL(url);
+    showToast('File aplikasi HTML standalone berhasil diunduh!');
   };
 
-  const MENU_ITEMS = [
+  // Ekspor Rekapitulasi ke Excel / CSV
+  const handleExportCSV = () => {
+    const headers = ['No Transaksi', 'Tanggal', 'Bulan', 'Komponen BOSP', 'Uraian Belanja', 'Penyedia', 'No Kwitansi', 'No Nota Pesanan', 'No BAPB', 'No BAST', 'Total Realisasi'];
+    const rows = transactions.map((t) => {
+      const total = (t.items || []).reduce((s, i) => s + ((Number(i.jumlah) || 0) * (Number(i.harga) || 0)), 0);
+      return [
+        t.id, t.tanggal, t.bulan, t.komponen, t.uraianBelanja, t.namaPenyedia,
+        t.noKwitansi, t.noNotaPesanan, t.noBAPenerimaan, t.noBAST, total
+      ].map((v) => `"${String(v ?? '').replace(/"/g, '""')}"`).join(',');
+    });
+    const csvContent = '\uFEFF' + [headers.join(','), ...rows].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `Rekap_BOSP_SMKN4_Sinjai_${schoolData.tahunAnggaran}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    showToast('Laporan rekapitulasi Excel/CSV berhasil diunduh!');
+  };
+
+  // Daftar Menu Navigasi Sidebar (Tanpa Galeri & Laporan Foto serta Tanpa Arsip Digital BOSP)
+  const menuItems = [
     { id: 'dashboard', label: 'Dashboard Utama', icon: LayoutDashboard },
-    { id: 'transaksi', label: 'Transaksi & Dokumen SPJ', icon: ShoppingCart },
-    { id: 'paket_spj', label: 'Generate Paket SPJ', icon: Layers },
-    { id: 'validasi', label: 'Validasi Kelengkapan SPJ', icon: CheckSquare },
-    { id: 'anggaran', label: 'Pengelolaan Anggaran', icon: Wallet },
+    { id: 'transaksi', label: 'Transaksi & Cetak SPJ', icon: ShoppingCart },
+    { id: 'paket_spj', label: 'Generator Paket SPJ', icon: FileCheck2 },
+    { id: 'validasi', label: 'Validasi Kelengkapan', icon: CheckSquare },
+    { id: 'anggaran', label: 'Anggaran RKAS BOSP', icon: Wallet },
     { id: 'laporan', label: 'Laporan & Rekapitulasi', icon: BarChart3 },
     { id: 'master', label: 'Master Data Sekolah', icon: Building2 },
-    { id: 'pengaturan', label: 'Nomor & Hak Akses', icon: Settings },
+    { id: 'pengaturan', label: 'Pengaturan & Sistem', icon: Settings },
   ];
 
+  const activeMenuObj = menuItems.find((m) => m.id === activeMenu) || menuItems[0];
+
   return (
-    <div className="min-h-screen bg-slate-100 flex flex-col md:flex-row font-sans text-slate-800">
-      {/* TOAST NOTIFICATION */}
-      {toastMsg && (
-        <div className={`fixed bottom-5 right-5 z-50 flex items-center gap-3 px-5 py-3.5 rounded-xl shadow-xl border text-white transition-all ${toastMsg.tipe === 'error' ? 'bg-red-700 border-red-500' : 'bg-slate-900 border-sky-500'}`}>
-          <CheckCircle2 className="w-5 h-5 text-sky-400 flex-shrink-0" />
-          <span className="text-sm font-medium">{toastMsg.pesan}</span>
+    <div className="min-h-screen bg-slate-100 flex text-slate-800 font-sans">
+      {/* Notifikasi Toast Mengambang */}
+      {toast && (
+        <div className={`fixed bottom-5 right-5 z-[60] px-4 py-3 rounded-xl shadow-xl border text-xs font-bold flex items-center gap-2 print:hidden ${
+          toast.type === 'error'
+            ? 'bg-red-600 text-white border-red-700'
+            : 'bg-slate-900 text-white border-sky-500/40'
+        }`}>
+          {toast.type === 'error' ? <AlertTriangle className="w-4 h-4 text-red-200" /> : <CheckCircle2 className="w-4 h-4 text-emerald-400" />}
+          <span>{toast.message}</span>
         </div>
       )}
 
-      {/* OVERLAY MOBILE MENU */}
+      {/* Overlay Mobile Sidebar */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 bg-slate-900/50 z-30 md:hidden backdrop-blur-sm" onClick={() => setIsMobileMenuOpen(false)} />
+        <div
+          onClick={() => setIsMobileMenuOpen(false)}
+          className="fixed inset-0 bg-black/50 z-30 lg:hidden print:hidden"
+        />
       )}
 
-      {/* SIDEBAR NAVIGASI */}
-      <aside className={`fixed inset-y-0 left-0 z-40 transform ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 w-72 bg-[#0f172a] text-white flex-shrink-0 flex flex-col justify-between print:hidden transition-transform duration-300 ease-in-out shadow-2xl md:shadow-none`}>
+      {/* Sidebar Navigasi Kiri */}
+      <aside className={`fixed lg:static inset-y-0 left-0 z-40 w-64 bg-slate-900 text-white flex flex-col justify-between transition-transform duration-200 print:hidden ${
+        isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+      }`}>
         <div>
-          {/* Brand Header */}
-          <div className="p-5 border-b border-slate-800 flex items-center justify-between gap-3.5">
-            <div className="flex items-center gap-3.5">
-              <div className="w-11 h-11 rounded-xl bg-sky-500 flex items-center justify-center font-extrabold text-lg shadow-lg shadow-sky-500/30">
-                S4
+          <div className="p-5 border-b border-slate-800 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-sky-600 flex items-center justify-center font-extrabold text-sm shadow">
+                BOSP
               </div>
               <div>
-                <h1 className="font-extrabold text-sm tracking-wide text-white leading-tight">SI-BOSP & SPJ</h1>
-                <p className="text-xs text-sky-400 font-semibold">{schoolData.namaSekolah}</p>
-                <span className="inline-block mt-0.5 text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded">
-                  TA {schoolData.tahunAnggaran} • Auto-Save Aktif
-                </span>
+                <h1 className="text-sm font-extrabold tracking-tight leading-tight">SI-BOSP SMKN 4</h1>
+                <p className="text-[11px] text-sky-400 font-semibold">Kab. Sinjai • TA {schoolData.tahunAnggaran}</p>
               </div>
             </div>
-            <button onClick={() => setIsMobileMenuOpen(false)} className="md:hidden p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg">
+            <button onClick={() => setIsMobileMenuOpen(false)} className="lg:hidden p-1 rounded hover:bg-slate-800">
               <X className="w-5 h-5" />
             </button>
           </div>
 
-          {/* Menu Navigasi */}
           <nav className="p-3 space-y-1">
-            {MENU_ITEMS.map((item) => {
-              const Icon = item.icon;
+            {menuItems.map((item) => {
+              const IconComp = item.icon;
               const isActive = activeMenu === item.id;
               return (
                 <button
                   key={item.id}
-                  onClick={() => { setActiveMenu(item.id); setIsMobileMenuOpen(false); }}
-                  className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all ${
+                  onClick={() => {
+                    setActiveMenu(item.id);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition ${
                     isActive
-                      ? 'bg-sky-600 text-white shadow-md shadow-sky-600/30'
-                      : 'text-slate-300 hover:bg-slate-800/70 hover:text-white'
+                      ? 'bg-sky-600 text-white shadow-md'
+                      : 'text-slate-300 hover:bg-slate-800 hover:text-white'
                   }`}
                 >
-                  <div className="flex items-center gap-3">
-                    <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-slate-400'}`} />
-                    <span>{item.label}</span>
-                  </div>
-                  {item.id === 'validasi' && stats.jmlBelumLengkap > 0 && (
-                    <span className="bg-amber-500 text-slate-950 font-extrabold text-[10px] px-1.5 py-0.5 rounded-full">
-                      {stats.jmlBelumLengkap}
-                    </span>
-                  )}
+                  <IconComp className="w-4 h-4 flex-shrink-0" />
+                  <span>{item.label}</span>
                 </button>
               );
             })}
           </nav>
         </div>
 
-        {/* Info Pengembang & Pengguna Aktif */}
-        <div className="p-3 space-y-2.5">
-          {/* Badge Pengembang Aplikasi */}
-          <div className="p-3.5 rounded-xl bg-gradient-to-br from-sky-900/90 via-indigo-950 to-slate-900 border border-sky-500/40 text-xs shadow-lg">
-            <div className="flex items-center gap-2 text-sky-300 mb-1">
-              <Code2 className="w-4 h-4 text-sky-400 flex-shrink-0" />
-              <span className="text-[10px] font-bold uppercase tracking-wider">Pengembang Aplikasi</span>
-            </div>
-            <p className="font-extrabold text-sm text-white tracking-wide uppercase">{DEVELOPER_NAME}</p>
-            <p className="text-[10px] text-sky-200/80 mt-0.5">NIP. 198806152022211008</p>
-            <div className="mt-2 pt-2 border-t border-sky-500/20 flex items-center justify-between text-[10px] text-emerald-300">
-              <span className="flex items-center gap-1 font-semibold">
-                <Database className="w-3 h-3" /> Data Lokal Aktif
-              </span>
-              <span>{lastSavedTime}</span>
-            </div>
+        <div className="p-4 border-t border-slate-800 text-[11px] text-slate-400 space-y-1.5">
+          <div className="flex items-center gap-2 text-emerald-400 font-bold">
+            <Database className="w-3.5 h-3.5" />
+            <span>{saveStatus}</span>
           </div>
-
-          <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 text-xs">
-            <div className="flex items-center gap-2 mb-1">
-              <UserCheck className="w-4 h-4 text-emerald-400" />
-              <span className="font-bold text-slate-200">{currentUserRole}</span>
-            </div>
-            <p className="text-[11px] text-slate-400 truncate">{schoolData.bendahara}</p>
-            <p className="text-[10px] text-slate-500 mt-0.5">NPSN: {schoolData.npsn}</p>
-          </div>
+          <p className="text-[10px] text-slate-400">Terakhir disimpan: <b className="text-slate-200">{lastSavedTime}</b></p>
+          <p className="text-[10px] text-slate-500 pt-1 border-t border-slate-800">Peran: <span className="text-sky-300 font-semibold">{currentUserRole}</span></p>
         </div>
       </aside>
 
-      {/* KONTEN UTAMA */}
-      <div className="flex-1 flex flex-col min-w-0 print:hidden overflow-hidden">
+      {/* Kolom Konten Utama */}
+      <div className="flex-1 flex flex-col min-w-0">
         {/* Top Header */}
-        <header className="bg-white border-b border-slate-200 px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-20">
+        <header className="bg-white border-b border-slate-200 px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3 sticky top-0 z-20 print:hidden">
           <div className="flex items-center gap-3">
-            <button onClick={() => setIsMobileMenuOpen(true)} className="md:hidden p-2 -ml-2 text-slate-600 hover:bg-slate-100 rounded-lg transition">
-              <Menu className="w-6 h-6" />
+            <button
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="lg:hidden p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700"
+            >
+              <Menu className="w-5 h-5" />
             </button>
             <div>
-              <div className="flex flex-wrap items-center gap-2">
-                <h2 className="text-base font-extrabold text-slate-800 uppercase tracking-tight">
-                  Sistem Informasi Pengelolaan Dana BOSP
-                </h2>
-                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-300">
-                  <Database className="w-3 h-3 text-emerald-600" />
-                  {saveStatus} ({lastSavedTime})
-                </span>
-              </div>
-              <p className="text-xs text-slate-500 hidden sm:block mt-0.5">
-                {schoolData.instansiProvinsi} — {schoolData.namaSekolah} • Dikembangkan oleh: <span className="font-extrabold text-sky-700">{DEVELOPER_NAME}</span>
+              <h2 className="text-sm sm:text-base font-extrabold text-slate-900">{activeMenuObj.label}</h2>
+              <p className="text-[11px] text-slate-500">
+                {schoolData.namaSekolah} • <span className="text-emerald-600 font-semibold">{saveStatus} ({lastSavedTime})</span>
               </p>
             </div>
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
+            {/* Tombol Simpan Data Manual */}
+            <button
+              onClick={() => simpanSemuaDataSekarang({}, true)}
+              title="Simpan Semua Data Terakhir Sekarang"
+              className="flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3.5 py-2.5 rounded-xl shadow-sm transition"
+            >
+              <Database className="w-4 h-4 text-emerald-100" />
+              <span className="hidden md:inline">Simpan Data</span>
+            </button>
+
             {/* Tombol Download App HTML */}
             <button
               onClick={handleDownloadHTML}
@@ -3235,7 +3342,7 @@ function App() {
               <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                 <h3 className="text-base font-extrabold text-slate-800 mb-4">Pengelolaan Pagu & Rencana Kegiatan Anggaran Sekolah (RKAS BOSP)</h3>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
                     <label className="text-xs font-bold text-slate-600 block mb-1">Total Pagu Anggaran BOSP (Rp)</label>
                     <input
@@ -3264,39 +3371,6 @@ function App() {
                     />
                   </div>
                 </div>
-
-                <table className="w-full text-xs border-collapse">
-                  <thead>
-                    <tr className="bg-slate-100 border-b border-slate-200 text-left">
-                      <th className="p-3">Kode</th>
-                      <th className="p-3">Nama Rencana Kegiatan RKAS</th>
-                      <th className="p-3">Komponen BOSP</th>
-                      <th className="p-3 text-right">Pagu Kegiatan</th>
-                      <th className="p-3 text-right">Realisasi Belanja</th>
-                      <th className="p-3 text-right">Sisa Pagu</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-200">
-                    {anggaran.rencanaKegiatan.map((rk) => {
-                      const realisasiRK = transactions
-                        .filter(t => t.kegiatanId === rk.id)
-                        .reduce((acc, t) => acc + t.items.reduce((s, i) => s + (i.jumlah * i.harga), 0), 0);
-                      const sisaRK = rk.pagu - realisasiRK;
-                      return (
-                        <tr key={rk.id}>
-                          <td className="p-3 font-mono font-bold">{rk.kode}</td>
-                          <td className="p-3 font-bold text-slate-800">{rk.nama}</td>
-                          <td className="p-3 text-slate-600">{rk.komponen}</td>
-                          <td className="p-3 text-right font-semibold">{formatRupiah(rk.pagu)}</td>
-                          <td className="p-3 text-right font-bold text-emerald-700">{formatRupiah(realisasiRK)}</td>
-                          <td className={`p-3 text-right font-bold ${sisaRK < 0 ? 'text-red-600' : 'text-slate-800'}`}>
-                            {formatRupiah(sisaRK)}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
               </div>
             </div>
           )}
